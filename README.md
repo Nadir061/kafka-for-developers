@@ -23,23 +23,23 @@ kafka-for-developer/
 ### Docker
 
 1. [Zookeeper](https://zookeeper.apache.org/)  
-   Название образа: confluentinc/cp-zookeeper:7.6.0  
+   Docker image: confluentinc/cp-zookeeper:7.6.0  
    Docker Hub: https://hub.docker.com/r/confluentinc/cp-zookeeper  
-   Описание: образ Docker, содержащий Apache Zookeeper, который поставляется вместе с платформой Confluent для работы с Apache Kafka.
+   Info: образ Docker, содержащий Apache Zookeeper, который поставляется вместе с платформой Confluent для работы с Apache Kafka.
    Версия образа 7.6.0 соответствует версии Confluent Platform, которая включает в себя Apache Zookeeper версии 3.6.2.
 
 
 2. [Kafka](https://kafka.apache.org/)  
-   Название образа: confluentinc/cp-kafka:7.6.0  
+   Docker image: confluentinc/cp-kafka:7.6.0  
    Docker Hub: https://hub.docker.com/r/confluentinc/cp-kafka  
-   Описание: контейнер Docker, содержащий Apache Kafka, от компании Confluent. Версия образа 7.6.0 соответствует версии
+   Info: контейнер Docker, содержащий Apache Kafka, от компании Confluent. Версия образа 7.6.0 соответствует версии
    Apache Kafka, которая включена в этот образ.
 
 
 3. [Kafdrop](https://github.com/obsidiandynamics/kafdrop)  
-   Название образа: linuxforhealth/kafdrop:latest
+   Docker image: linuxforhealth/kafdrop:latest
    Docker Hub: https://hub.docker.com/r/linuxforhealth/kafdrop  
-   Описание: веб-интерфейс для управления и мониторинга Apache Kafka, который позволяет взаимодействовать с кластером Kafka.
+   Info: веб-интерфейс для управления и мониторинга Apache Kafka, который позволяет взаимодействовать с кластером Kafka.
 
 
 
