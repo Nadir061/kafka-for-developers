@@ -17,11 +17,12 @@ import java.util.concurrent.Future;
 public class KafkaProducer03App {
 
     private static final Logger logger = LoggerFactory.getLogger(KafkaProducer03App.class);
+    private static final int MAX_MESSAGE = 10;
 
     public static void main(String[] args) {
 
         try (KafkaProducer<String, String> producer = new KafkaProducer<>(KafkaConfig.getProducerConfig())) {
-            for (int i = 0; i < 10; i++) {
+            for (int i = 0; i < MAX_MESSAGE; i++) {
                 ProducerRecord<String, String> producerRecord = new ProducerRecord<>(KafkaConfig.TOPIC, "key-" + i,
                         "value-" + i);
                 /**
