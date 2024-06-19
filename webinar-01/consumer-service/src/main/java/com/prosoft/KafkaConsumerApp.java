@@ -13,13 +13,14 @@ import java.util.Collections;
 public class KafkaConsumerApp {
 
     private static final Logger logger = LoggerFactory.getLogger(KafkaConsumerApp.class);
+    private static final Duration TEN_MILLISECONDS_INTERVAL = Duration.ofMillis(10);
 
     public static void main(String[] args) {
         KafkaConsumer<String, String> consumer = new KafkaConsumer<>(KafkaConfig.getConsumerConfig());
         try (consumer) {
             consumer.subscribe(Collections.singletonList(KafkaConfig.TOPIC));
             while (true) {
-                ConsumerRecords<String, String> consumerRecords = consumer.poll(Duration.ofMillis(10));
+                ConsumerRecords<String, String> consumerRecords = consumer.poll(TEN_MILLISECONDS_INTERVAL);
                 for (ConsumerRecord<String, String> cr : consumerRecords) {
                     logger.info("topic = {}, offset = {}, key = {}, value = {}", cr.topic(), cr.offset(), cr.key(), cr.value());
                 }

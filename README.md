@@ -25,10 +25,10 @@ kafka-for-developer/
 ### Docker
 
 1. [Zookeeper](https://zookeeper.apache.org/)  
-   Docker image: confluentinc/cp-zookeeper:7.6.1
-   Last pushed: 11.04.2024 
+   Docker image: confluentinc/cp-zookeeper:7.6.1  
+   Last pushed: 11.04.2024   
    Docker Hub: https://hub.docker.com/r/confluentinc/cp-zookeeper  
-   Info: образ Docker, содержащий Apache Zookeeper, который поставляется вместе с платформой Confluent для работы с Apache Kafka.
+   Info: образ Docker, содержащий Apache Zookeeper, который поставляется вместе с платформой Confluent для работы с Apache Kafka.  
    
   
 2. [Kafka](https://kafka.apache.org/)  
