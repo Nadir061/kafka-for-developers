@@ -23,8 +23,9 @@ public class KafkaProducer03App {
 
         try (KafkaProducer<String, String> producer = new KafkaProducer<>(KafkaConfig.getProducerConfig())) {
             for (int i = 0; i < MAX_MESSAGE; i++) {
-                ProducerRecord<String, String> producerRecord = new ProducerRecord<>(KafkaConfig.TOPIC, "key-" + i,
-                        "value-" + i);
+
+                ProducerRecord<String, String> producerRecord = new ProducerRecord<>(KafkaConfig.TOPIC, "key-" + i, "value-" + i);
+
                 /**
                  * Отправка сообщения в тему KafkaConfig.TOPIC с использованием метод send с Callback.
                  */

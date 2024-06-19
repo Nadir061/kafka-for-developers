@@ -13,22 +13,7 @@ public class KafkaConfig {
 
     public static final String TOPIC = "topic1";
 
-    // (1) Err: Продюсер отправляет, а Консамер не получает. Kafdrop работает на http://localhost:9000/
-    // docker-compose.yaml
-    // private static final String BOOTSTRAP_SERVERS = "localhost:9092";
-
-    // (2) Продюсер отправляет, а Консамер получает. Kafdrop работает на http://localhost:9000/ Есть ошибки в zookeeper в Docker. Но в целом все ок!!!
-    // docker-compose2.yaml
-    // private static final String BOOTSTRAP_SERVERS = "localhost:9091";
-
-    // (3) Продюсер отправляет, а Консамер получает. Kafdrop работает на http://localhost:9000/ Ошибок нет в Docker. Версии latest
-    // docker-compose3.yaml
-    // private static final String BOOTSTRAP_SERVERS = "localhost:9093";
-
-    // (4) Продюсер отправляет, а Консамер получает. Kafdrop работает на http://localhost:9000/ Ошибок нет в Docker. Версии не посследние перед latest
-    // docker-compose4.yaml
     private static final String BOOTSTRAP_SERVERS = "localhost:9093";
-
     private static final String GROUP_ID = "my-consumer-group";
 
     private KafkaConfig() { }

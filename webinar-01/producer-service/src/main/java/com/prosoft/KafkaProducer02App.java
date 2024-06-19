@@ -23,8 +23,9 @@ public class KafkaProducer02App {
 
         try (KafkaProducer<String, String> producer = new KafkaProducer<>(KafkaConfig.getProducerConfig())) {
             for (int i = 0; i < MAX_MESSAGE; i++) {
-                ProducerRecord<String, String> producerRecord = new ProducerRecord<>(KafkaConfig.TOPIC, "key-" + i,
-                        "value-" + i);
+
+                ProducerRecord<String, String> producerRecord = new ProducerRecord<>(KafkaConfig.TOPIC, "key-" + i, "value-" + i);
+
                 /**
                  * Отправка сообщения в топик KafkaConfig.TOPIC с использованием метода send для получения Future<RecordMetadata>.
                  * Метод get вызывается на Future для получения метаданных отправленного сообщения, таких как раздел и смещение.
