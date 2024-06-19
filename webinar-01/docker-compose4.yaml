@@ -29,7 +29,7 @@ services:
 
   kafdrop:
     image: obsidiandynamics/kafdrop:4.0.1 # 02.11.2023
-    # image: obsidiandynamics/kafdrop:4.0.2-SNAPSHOT # 11.06.2024
+    # image: obsidiandynamics/kafdrop:4.0.2-SNAPSHOT # 11.06.2024 - не заработал, оставил 4.0.1
     container_name: kafdrop
     ports:
       - "9000:9000"
