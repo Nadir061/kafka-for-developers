@@ -5,3 +5,4 @@ findProject(":webinar-01:producer-service")?.name = "producer-service"
 include("webinar-01:consumer-service")
 findProject(":webinar-01:consumer-service")?.name = "consumer-service"
 include("webinar-02")
+include("webinar-03")
