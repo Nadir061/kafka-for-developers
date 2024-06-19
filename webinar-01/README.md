@@ -22,3 +22,8 @@ dependencies {
     implementation 'org.apache.kafka:kafka-clients:3.1.0' // Замените версию на актуальную
 }
 ```
+
+### Features list
+```txt
+1) Настройка Kafka, Zookeeper, Kafdrop 
+```
