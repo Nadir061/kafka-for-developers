@@ -112,5 +112,11 @@ Kafka с двумя брокерами (репликацией) для повы�
 5) Consumer API configuration:
       - botstrap.servers - адрес брокера. "broker1:9093,broker2:9094"
       - key.deserializer - класс десерилизации ключа. Интерфейс org.apache.kafka.common.serialization.Deserializer 
-      - кастомный десериализатор ключей. Интерфейс org.apache.kafka.common.serialization.Deserializer. Методы: configure, deserialize и close.
+      - кастомный десериализатор ключей. Интерфейс org.apache.kafka.common.serialization.Deserializer. Методы: configure, deserialize и close
+      - value.deserializer - класс десериализации сообщения
+      - кастомный десериализатор значений. Интерфейс org.apache.kafka.common.serialization.Deserializer. Методы: configure, deserialize 
+      - group.id - идентификатор потребительской группы (consumer group)
+      - enable.auto.commit. Параметр auto.commit.interval.ms (5 сек)
+      -  
+      
 ```
