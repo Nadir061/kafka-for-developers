@@ -11,7 +11,7 @@ import java.time.Duration;
 import java.util.Collections;
 
 /**
- * Webinar-02 Kafka consumer-service
+ * Webinar-02: Kafka consumer-service
  * Использования метода producer.send(producerRecord) без обработки результата.
  */
 public class KafkaConsumerApp {
