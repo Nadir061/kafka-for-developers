@@ -6,14 +6,14 @@ import org.apache.kafka.common.serialization.StringSerializer;
 import java.util.Properties;
 
 /**
- * KafkaConfig содержит конфигурацию для продюсера в виде метода getProducerConfig.
+ * Webinar-02: KafkaConfig содержит конфигурацию для продюсера в виде метода getProducerConfig.
  * Конфигурации включают настройки для серверов Kafka, сериализации/десериализации и групп отправителей.
  */
 public class KafkaConfig {
 
     public static final String TOPIC = "topic1";
 
-    private static final String BOOTSTRAP_SERVERS = "localhost:9093";
+    private static final String BOOTSTRAP_SERVERS = "localhost:9091, localhost:9092, localhost:9093";
 
     private KafkaConfig() { }
 

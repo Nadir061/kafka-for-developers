@@ -13,7 +13,7 @@ public class KafkaConfig {
 
     public static final String TOPIC = "topic1";
 
-    private static final String BOOTSTRAP_SERVERS = "localhost:9093";
+    private static final String BOOTSTRAP_SERVERS = "localhost:9091, localhost:9092, localhost:9093";
     private static final String GROUP_ID = "my-consumer-group";
 
     private KafkaConfig() { }
