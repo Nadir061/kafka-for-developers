@@ -7,7 +7,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 /**
- * Kafka: producer-service (variant #1)
+ * Webinar-02: Kafka producer-service (variant #1)
  * Использования метода producer.send(producerRecord) без обработки результата.
  */
 public class KafkaProducer01App {

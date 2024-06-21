@@ -11,7 +11,7 @@ import java.util.concurrent.ExecutionException;
 import java.util.concurrent.Future;
 
 /**
- * Kafka: producer-service (variant #3)
+ * Webinar-01: Kafka producer-service (variant #3)
  * Используется метод send(ProducerRecord<K, V> record, Callback callback) с Future<RecordMetadata> и Callback
  */
 public class KafkaProducer03App {

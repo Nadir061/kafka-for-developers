@@ -10,6 +10,10 @@ import org.slf4j.LoggerFactory;
 import java.time.Duration;
 import java.util.Collections;
 
+/**
+ * Webinar-01 Kafka: consumer-service
+ * Использования метода producer.send(producerRecord) без обработки результата.
+ */
 public class KafkaConsumerApp {
 
     private static final Logger logger = LoggerFactory.getLogger(KafkaConsumerApp.class);
