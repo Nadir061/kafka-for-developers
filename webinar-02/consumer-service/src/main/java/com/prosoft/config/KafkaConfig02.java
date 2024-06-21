@@ -1,22 +1,23 @@
 package com.prosoft.config;
 
+import com.prosoft.deserializer.PersonDeserializer;
 import org.apache.kafka.clients.consumer.ConsumerConfig;
-import org.apache.kafka.common.serialization.StringDeserializer;
+import org.apache.kafka.common.serialization.LongDeserializer;
 
 import java.util.Properties;
 
 /**
- * Webinar-02: KafkaConfig содержит конфигурацию для кансамера в виде метода getConsumerConfig.
+ * Webinar-02: KafkaConfig01 содержит конфигурацию для кансамера в виде метода getConsumerConfig.
  * Конфигурации включают настройки для серверов Kafka, десериализации и групп потребителей.
  */
-public class KafkaConfig {
+public class KafkaConfig02 {
 
-    public static final String TOPIC = "topic1";
+    public static final String TOPIC = "topic2";
 
     private static final String BOOTSTRAP_SERVERS = "localhost:9091, localhost:9092, localhost:9093";
     private static final String GROUP_ID = "my-consumer-group";
 
-    private KafkaConfig() { }
+    private KafkaConfig02() { }
 
     public static Properties getConsumerConfig() {
         Properties properties = new Properties();
@@ -26,12 +27,11 @@ public class KafkaConfig {
         /** Идентификатор группы потребителей (consumer group ID) */
         properties.put(ConsumerConfig.GROUP_ID_CONFIG, GROUP_ID);
 
-        /** Использование StringSerializer для сериализации ключей и значений сообщений.
-         *  StringSerializer.class в контексте Apache Kafka представляет собой реализацию интерфейса Serializer
-         *  из клиентской библиотеки Kafka, которая используется для сериализации объектов типа String в байтовый формат.
-         */
-        properties.put(ConsumerConfig.KEY_DESERIALIZER_CLASS_CONFIG, StringDeserializer.class.getName());
-        properties.put(ConsumerConfig.VALUE_DESERIALIZER_CLASS_CONFIG, StringDeserializer.class.getName());
+        /** Использование LongDeserializer для десериализации ключей (Key) */
+        properties.put(ConsumerConfig.KEY_DESERIALIZER_CLASS_CONFIG, LongDeserializer.class.getName());
+
+        /** Использование PersonDeserializer для десериализации значений (Value) */
+        properties.put(ConsumerConfig.VALUE_DESERIALIZER_CLASS_CONFIG, PersonDeserializer.class.getName());
 
         /** Управление поведением потребителя при первом подключении к топику или при потере сохраненного смещения:
          * - "earliest": начинает считывать сообщения с самого начала топика

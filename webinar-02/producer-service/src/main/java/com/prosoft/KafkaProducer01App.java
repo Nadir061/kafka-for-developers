@@ -1,6 +1,6 @@
 package com.prosoft;
 
-import com.prosoft.config.KafkaConfig;
+import com.prosoft.config.KafkaConfig01;
 import org.apache.kafka.clients.producer.KafkaProducer;
 import org.apache.kafka.clients.producer.ProducerRecord;
 import org.slf4j.Logger;
@@ -16,9 +16,9 @@ public class KafkaProducer01App {
     private static final int MAX_MESSAGE = 10;
 
     public static void main(String[] args) {
-        try (KafkaProducer<String, String> producer = new KafkaProducer<>(KafkaConfig.getProducerConfig())) {
+        try (KafkaProducer<String, String> producer = new KafkaProducer<>(KafkaConfig01.getProducerConfig())) {
             for (int i = 0; i < MAX_MESSAGE; i++) {
-                ProducerRecord<String, String> producerRecord = new ProducerRecord<>(KafkaConfig.TOPIC, "key-" + i, "value-" + i);
+                ProducerRecord<String, String> producerRecord = new ProducerRecord<>(KafkaConfig01.TOPIC, "key-" + i, "value-" + i);
                 producer.send(producerRecord);
                 logger.info("Отправлено сообщение: key-{}, value-{}", i, i);
             }
