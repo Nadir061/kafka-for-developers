@@ -12,7 +12,7 @@ import java.util.Collections;
 
 /**
  * Webinar-01 Kafka: consumer-service
- * Использования метода producer.send(producerRecord) без обработки результата.
+ * Использования метода consumer.poll().
  */
 public class KafkaConsumerApp {
 
