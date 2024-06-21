@@ -26,7 +26,7 @@ public class KafkaConfig {
         /** Идентификатор группы потребителей (consumer group ID) */
         properties.put(ConsumerConfig.GROUP_ID_CONFIG, GROUP_ID);
 
-        /** Использование StringSerializer для сериализации ключей и значений сообщений.
+        /** Использование StringSerializer для десериализации ключей и значений сообщений.
          *  StringSerializer.class в контексте Apache Kafka представляет собой реализацию интерфейса Serializer
          *  из клиентской библиотеки Kafka, которая используется для сериализации объектов типа String в байтовый формат.
          */
