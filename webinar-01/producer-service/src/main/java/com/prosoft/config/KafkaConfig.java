@@ -6,8 +6,8 @@ import org.apache.kafka.common.serialization.StringSerializer;
 import java.util.Properties;
 
 /**
- * KafkaConfig содержит конфигурацию для продюсера в виде метода getProducerConfig.
- * Конфигурации включают настройки для серверов Kafka, сериализации/десериализации и групп отправителей.
+ * Webinar-01: KafkaConfig содержит конфигурацию для продюсера в виде метода getProducerConfig.
+ * Конфигурации включают настройки для серверов Kafka, сериализации и групп отправителей.
  */
 public class KafkaConfig {
 

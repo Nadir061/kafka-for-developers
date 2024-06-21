@@ -6,8 +6,8 @@ import org.apache.kafka.common.serialization.StringDeserializer;
 import java.util.Properties;
 
 /**
- * KafkaConfig содержит конфигурацию для кансамера в виде метода getConsumerConfig.
- * Конфигурации включают настройки для серверов Kafka, сериализации/десериализации и групп потребителей.
+ * Webinar-01: KafkaConfig содержит конфигурацию для кансамера в виде метода getConsumerConfig.
+ * Конфигурации включают настройки для серверов Kafka, десериализации и групп потребителей.
  */
 public class KafkaConfig {
 
