@@ -86,5 +86,33 @@ docker exec -ti kafka1 /usr/bin/kafka-consumer-groups --list --bootstrap-server 
 docker exec -ti kafka1 /usr/bin/kafka-consumer-groups --describe --all-groups --bootstrap-server localhost:9191
 ```
 
+## Автоматизация и скриптинг
 
+(Требует прав администратора)
 
+`1.` Список содержимого /usr/bin
+```shell
+docker exec kafka1 ls -l /usr/bin
+```
+
+`2.` Создание файла create_topic.sh 
+```shell
+sudo tee /bin/bash/create_topic.sh > /dev/null << 'EOF'
+#!/bin/bash
+# create_topic.sh
+
+TOPIC_NAME=\$1
+PARTITIONS=\$2
+REPLICATION_FACTOR=\$3
+BROKER_LIST=\$4
+
+kafka-topics.sh --create --topic \$TOPIC_NAME --partitions \$PARTITIONS --replication-factor \$REPLICATION_FACTOR --bootstrap-server \$BROKER_LIST
+EOF
+
+sudo chmod +x /bin/bash/create_topic.sh
+```
+
+`3.` Запуск созданного скрипта create_topic.sh
+``` shell
+docker exec kafka1 /bin/bash/create_topic.sh topic-name3 2 1 localhost:9191
+```
