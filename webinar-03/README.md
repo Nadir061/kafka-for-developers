@@ -35,7 +35,8 @@ docker exec -ti kafka1 /usr/bin/kafka-topics --create --topic topic3 --partition
            - .unsubscribe() - отменяет подписку потребителя на все топики;
            - .wakeup() - прерывает текущий вызов метода `poll()`, заставляя его немедленно выбросить WakeupException;
            - .pause() - используется для временной приостановки получения данных из определённых партиций топика;
-      - ConsumerRebalanceListener - интерфейс, который позволяет определить, что делать в случае ребалансировки;  
+      - ConsumerRebalanceListener - интерфейс, который позволяет определить, что делать в случае ребалансировки; 
+      + partition.assignment.strategy - параметр определяющий стратегию выбора для перераспределения партиций (RangeAssignor (по умолчанию), RoundRobin, StickyAssignor, CooperativeStickyAssignor); 
       - group.instance.id - статическое членство (static membership).   
 4) Offset:
       + Auto-commit и топик "__consumer_offset";

@@ -53,6 +53,28 @@ public class KafkaConfig {
          */
         properties.put(ConsumerConfig.MAX_POLL_INTERVAL_MS_CONFIG, 300000);
 
+        /**
+         * partition.assignment.strategy - параметр определяющий стратегию выбора для перераспределения партиций:
+         * 1) RangeAssignor (по умолчанию) - делит партиции на последовательные диапазоны и назначает их потребителям.
+         * Например, если есть 3 потребителя и 6 партиций, то первый потребитель получит партиции 0 и 1,
+         * второй получит 2 и 3, а третий — 4 и 5.
+         * Значение "org.apache.kafka.clients.consumer.RangeAssignor".
+         *
+         * 2) RoundRobinAssignor - назначает партиции потребителям по круговому принципу. Например, если есть 3 потребителя
+         * и 6 партиций, то каждый потребитель получит по одной партиции до тех пор, пока все партиции не будут назначены.
+         * Значение: "org.apache.kafka.clients.consumer.RoundRobinAssignor".
+         *
+         * 3) StickyAssignor - стремится минимизировать перераспределение партиций, сохраняя предыдущие назначения там,
+         * где это возможно. Это помогает уменьшить накладные расходы, связанные с перераспределением.
+         * Значение: "org.apache.kafka.clients.consumer.StickyAssignor".
+         *
+         * 4) CooperativeStickyAssignor - похож на StickyAssignor, но поддерживает "кооперативный" режим, позволяющий
+         * более плавно выполнять перераспределение партиций. Это позволяет избежать временных окон, когда некоторые партиции
+         * могут остаться без владельцев в процессе ребалансировки.
+         * Значение "org.apache.kafka.clients.consumer.CooperativeStickyAssignor".
+         */
+        properties.put(ConsumerConfig.PARTITION_ASSIGNMENT_STRATEGY_CONFIG, "org.apache.kafka.clients.consumer.RoundRobinAssignor");
+
         /** Включение автоматической фиксации смещений (enable.auto.commit = true).
          * По умолчанию параметр enable.auto.commit установлен в true - потребитель автоматически фиксирует оффсет после
          * обработки каждого пакета сообщений
@@ -88,7 +110,6 @@ public class KafkaConfig {
          * за пределами диапазона доступных смещений.
          * */
         properties.put(ConsumerConfig.AUTO_OFFSET_RESET_CONFIG, "earliest");
-
 
         return properties;
     }
