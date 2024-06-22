@@ -1,5 +1,9 @@
 # webinar-03
-### Kafka cluster
+[![Java](https://img.shields.io/badge/Java-E43222??style=for-the-badge&logo=openjdk&logoColor=FFFFFF)](https://www.java.com/)
+[![Kafka](https://img.shields.io/badge/Kafka-000000??style=for-the-badge&logo=apachekafka)](https://kafka.apache.org/)
+[![Docker](https://img.shields.io/badge/Docker-0E2B62??style=for-the-badge&logo=Docker&logoColor=FFFFFF)](https://www.docker.com/)
+
+## Kafka cluster
 ```txt
 Kafka с тремя брокерами (репликацией) для повышения отказоустойчивости и масштабируемости системы
 ```
@@ -9,13 +13,14 @@ Kafka с тремя брокерами (репликацией) для повы�
 docker exec -ti kafka1 /usr/bin/kafka-topics --create --topic topic3 --partitions 3 --replication-factor 1 --bootstrap-server localhost:9191
 ```
 
-### ConsumerConfig
+## ConsumerConfig
 
-```java
+См. [KafkaConfig.java](consumer-service%2Fsrc%2Fmain%2Fjava%2Fcom%2Fprosoft%2Fconfig%2FKafkaConfig.java)
+    [KafkaConfig.java](producer-service%2Fsrc%2Fmain%2Fjava%2Fcom%2Fprosoft%2Fconfig%2FKafkaConfig.java)
 
-```
 
-### Features list
+## Features list
+
 ```txt
 1) Настройка репликации Kafka, Zookeeper, Kafdrop 
 
@@ -64,21 +69,23 @@ docker exec -ti kafka1 /usr/bin/kafka-topics --create --topic topic3 --partition
       - закрытие consumer.close(Duration.ofSeconds(10)). 
 ```
 
-### Demo's description
-Класс KafkaProducerApp выполняет роль Kafka продюсера, который отправляет объекты класса Person в указанный Kafka топик.
+## Demo's description
+
+Класс [KafkaProducerApp](https://github.com/sproshchaev/kafka-for-developers/blob/base/webinar-03/producer-service/src/main/java/com/prosoft/KafkaProducerApp.java) выполняет роль Kafka продюсера, который отправляет объекты класса Person в указанный Kafka топик.
 Конфигурация продюсера берется из класса KafkaConfig. KafkaProducerApp отправляет 10 сообщений (MAX_MESSAGE).
 Для каждого сообщения создается объект класса Person с уникальными данными. Создается объект ProducerRecord, 
 который содержит информацию о топике, ключе и значении (объекте Person).
 Сообщения отправляются в Kafka с использованием метода producer.send(), который принимает объект ProducerRecord и 
 анонимный класс Callback для обработки результата отправки.
-При успешной отправке сообщения логируется информация о ключе, значении, партиции и смещении.
+При успешной отправке сообщения логируется информация о ключе, значении, партиции и смещении.  
 
-Класс KafkaConsumerApp выполняет роль Kafka-потребителя, предназначенное для чтения сообщений из Kafka-топика (topic3) 
+Класс [KafkaConsumerApp](https://github.com/sproshchaev/kafka-for-developers/blob/base/webinar-03/consumer-service/src/main/java/com/prosoft/KafkaConsumerApp.java) выполняет роль Kafka-потребителя, предназначенное для чтения сообщений из Kafka-топика (topic3) 
 с использованием клиентской библиотеки Apache Kafka. Класс настраивает и запускает несколько потребителей Kafka в отдельных 
 потоках для параллельного чтения сообщений из Kafka-топика.
 Каждый экземпляр потребителя подписывается на один топик (topic3) с помощью consumer.subscribe().
 В бесконечном цикле (while (true)) каждый потребитель выполняет опрос записей ConsumerRecords<Long, Person> 
-и для каждой полученной записи выаодит в лог: ключ, значение, раздел и смещение, с использованием SLF4J.
+и для каждой полученной записи выаодит в лог: ключ, значение, раздел и смещение, с использованием SLF4J.  
+
 ```txt
 webinar-03
 ├── consumer-service
