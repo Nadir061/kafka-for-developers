@@ -12,7 +12,7 @@ import java.util.Properties;
  */
 public class KafkaConfig {
 
-    public static final String TOPIC = "topic2";
+    public static final String TOPIC = "topic3";
     public static final int PARTITION = 0;
 
     private static final String BOOTSTRAP_SERVERS = "localhost:9091, localhost:9092, localhost:9093";

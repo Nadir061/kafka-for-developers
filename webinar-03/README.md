@@ -3,6 +3,12 @@
 ```txt
 Kafka с тремя брокерами (репликацией) для повышения отказоустойчивости и масштабируемости системы
 ```
+
+Создание топика topic3 с тремя партициями
+```sh
+docker exec -ti kafka1 /usr/bin/kafka-topics --create --topic topic3 --partitions 3 --replication-factor 1 --bootstrap-server localhost:9191
+```
+
 ### ConsumerConfig
 
 ```java
