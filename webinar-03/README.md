@@ -90,9 +90,9 @@ webinar-03
 │       │   │       ├── config
 │       │   │       │   └── KafkaConfig - настройки конфигурации потребителя Kafka
 │       │   │       ├── deserializer
-│       │   │       │   └── PersonDeserializer
+│       │   │       │   └── PersonDeserializer - десериализатор массива байт из Kafka в объекты типа Person
 │       │   │       ├── domain
-│       │   │       │   └── Person - Класс-домен, представляющий отправляемые объекты
+│       │   │       │   └── Person - класс-домен, представляющий отправляемые объекты
 │       │   │       └── KafkaConsumerApp
 │       │   └── resources
 │       └── test
@@ -108,7 +108,7 @@ webinar-03
 │       │   │       ├── domain
 │       │   │       │   └── Person - класс-домен, представляющий принмаемые объекты
 │       │   │       ├── serializer
-│       │   │       │   └── PersonSerializer
+│       │   │       │   └── PersonSerializer - сериализатор объектов типа Person в массив байт
 │       │   │       └── KafkaProducerApp
 │       │   └── resources
 │       └── test
