@@ -6,26 +6,27 @@ import org.apache.kafka.clients.admin.NewTopic;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import java.util.Arrays;
-import java.util.Collections;
 import java.util.List;
 import java.util.concurrent.ExecutionException;
 
 /**
- * Webinar-04: Kafka admin-service. Создание топиков.
+ * Webinar-04: Kafka admin-service. Простое создание топиков.
  */
 public class KafkaAdminApp {
 
     private static final Logger logger = LoggerFactory.getLogger(KafkaAdminApp.class);
 
     public static void main(String[] args) {
+        createTopics(List.of("my-topic", "my-topic2", "my-topic3"));
+    }
 
+    /**
+     * createTopics() - статический метод для создания топиков.
+     *
+     * @param topicNames Коллекция названий топиков для создания.
+     */
+    private static void createTopics(List<String> topicNames) {
         try (AdminClient adminClient = AdminClient.create(KafkaConfig.getAdminConfig())) {
-
-            /** Название создаваемых топиков */
-            String topicName = "my-topic";
-            String topicName2 = "my-topic2";
-            String topicName3 = "my-topic3";
 
             /** Количество партиций для топика */
             int numPartitions = 3;
@@ -40,16 +41,13 @@ public class KafkaAdminApp {
              */
             short replicationFactor = 1;
 
-            /** Создание еденичного топика */
-            NewTopic newTopic = new NewTopic(topicName, numPartitions, replicationFactor);
-            adminClient.createTopics(Collections.singleton(newTopic)).all().get();
-            logger.info("Топик '{}' успешно создан.", topicName);
+            /** Создание топиков из коллекции названий */
+            List<NewTopic> newTopics = topicNames.stream()
+                    .map(topicName -> new NewTopic(topicName, numPartitions, replicationFactor))
+                    .toList();
 
-            /** Создание топиков из коллекции */
-            List<NewTopic> topics = Arrays.asList(new NewTopic(topicName2, numPartitions, replicationFactor),
-                    new NewTopic(topicName3, numPartitions, replicationFactor));
-            adminClient.createTopics(topics).all().get();
-            logger.info("Топики из списка '{}' успешно созданы.", Arrays.toString(topics.toArray()));
+            adminClient.createTopics(newTopics).all().get();
+            logger.info("Топики '{}' успешно созданы.", topicNames);
 
         } catch (InterruptedException | ExecutionException e) {
             logger.error("Ошибка при создании топика", e);
