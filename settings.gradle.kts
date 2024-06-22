@@ -15,3 +15,5 @@ include("webinar-02:producer-service")
 findProject(":webinar-02:producer-service")?.name = "producer-service"
 include("webinar-03:producer-service")
 findProject(":webinar-03:producer-service")?.name = "producer-service"
+include("webinar-04:admin-service")
+findProject(":webinar-04:admin-service")?.name = "admin-service"
