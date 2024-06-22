@@ -7,17 +7,17 @@ import org.apache.kafka.common.serialization.LongSerializer;
 import java.util.Properties;
 
 /**
- * Webinar-02: KafkaConfig02 содержит конфигурацию для продюсера в виде метода getProducerConfig.
+ * Webinar-02: KafkaConfig содержит конфигурацию для продюсера в виде метода getProducerConfig.
  * Конфигурации включают настройки для серверов Kafka, сериализации и групп отправителей.
  */
-public class KafkaConfig02 {
+public class KafkaConfig {
 
     public static final String TOPIC = "topic2";
     public static final int PARTITION = 0;
 
     private static final String BOOTSTRAP_SERVERS = "localhost:9091, localhost:9092, localhost:9093";
 
-    private KafkaConfig02() {
+    private KafkaConfig() {
     }
 
     public static Properties getProducerConfig() {

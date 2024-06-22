@@ -62,3 +62,50 @@
             - .close();
             - .close(Duration.ofSeconds(60)).
 ```
+### Demo's description
+Приложение KafkaProducerApp формирует 10 объектов класса Person, сериализует и отправляет в заданный топик Kafka.
+Обработка результата отправки - в методе onCompletion интерфейса Callback проверяется наличие исключений и логируется 
+отправка.
+
+Приложение-потребитель KafkaConsumerApp (consumer) получает сообщения из заданного топика десериализует в объекты и 
+логирует получение.
+
+```txt
+webinar-02/
+│
+├── consumer-service/
+│   ├── build/
+│   ├── src/
+│   │   └── main/
+│   │       └── java/
+│   │           └── com.prosoft/
+│   │               ├── config/
+│   │               │   └── KafkaConfig.java        - конфигуратор потребителя
+│   │               ├── deserializer/
+│   │               │   └── PersonDeserializer.java - кастомный десериализатор
+│   │               ├── domain/
+│   │               │   └── Person.java             - доменная сущность
+│   │               └── KafkaConsumerApp.java       - потребитель
+│   ├── resources/
+│   └── test/
+│       └── build.gradle.kts
+│
+└── producer-service/
+    ├── build/
+    ├── src/
+    │   └── main/
+    │       └── java/
+    │           └── com.prosoft/
+    │               ├── config/
+    │               │   └── KafkaConfig.java      - конфигуратор производителя
+    │               ├── domain/
+    │               │   └── Person.java           - доменная сущность
+    │               ├── serializer/
+    │               │   └── PersonSerializer.java - кастомный сериализатор
+    │               └── KafkaProducerApp.java     - производитель 
+    ├── resources/
+    ├── test/
+    ├── build.gradle.kts
+    ├── docker-compose.yaml                       - файл конфигурации для Docker Compose
+    └── README.md
+```

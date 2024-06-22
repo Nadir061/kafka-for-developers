@@ -7,17 +7,17 @@ import org.apache.kafka.common.serialization.LongDeserializer;
 import java.util.Properties;
 
 /**
- * Webinar-02: KafkaConfig01 содержит конфигурацию для кансамера в виде метода getConsumerConfig.
+ * Webinar-02: KafkaConfig содержит конфигурацию для кансамера в виде метода getConsumerConfig.
  * Конфигурации включают настройки для серверов Kafka, десериализации и групп потребителей.
  */
-public class KafkaConfig02 {
+public class KafkaConfig {
 
     public static final String TOPIC = "topic2";
 
     private static final String BOOTSTRAP_SERVERS = "localhost:9091, localhost:9092, localhost:9093";
     private static final String GROUP_ID = "my-consumer-group";
 
-    private KafkaConfig02() { }
+    private KafkaConfig() { }
 
     public static Properties getConsumerConfig() {
         Properties properties = new Properties();
