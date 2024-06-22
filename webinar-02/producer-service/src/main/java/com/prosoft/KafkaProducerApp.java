@@ -13,8 +13,8 @@ import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 
 /**
- * Webinar-02: Kafka producer-service (variant #1) (отправка объектов класса Person)
- * Использования метода producer.send(producerRecord) без обработки результата.
+ * Webinar-02: Kafka producer-service (отправка объектов класса Person)
+ * Использования метода producer.send(producerRecord) с обработой результата отправки через Callback.
  */
 public class KafkaProducerApp {
 
@@ -65,7 +65,7 @@ public class KafkaProducerApp {
         } catch (Exception e) {
             logger.error("Ошибка при отправке сообщений в Kafka", e);
         }
-    }
+    } // todo показать без try -with-resources c вызовом .flush() .close() .close(Duration.ofSeconds(60))
 
     private static Person createPerson(int index) {
         String currentTime = LocalDateTime.now().format(DateTimeFormatter.ofPattern("dd-MM-yyyy-HH-mm-ss"));
