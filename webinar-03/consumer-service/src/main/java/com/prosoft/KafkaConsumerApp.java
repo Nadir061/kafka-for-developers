@@ -20,16 +20,33 @@ public class KafkaConsumerApp {
     private static final Duration TEN_MILLISECONDS_INTERVAL = Duration.ofMillis(10);
 
     public static void main(String[] args) {
-        KafkaConsumer<Long, Person> consumer = new KafkaConsumer<>(KafkaConfig.getConsumerConfig());
-        try (consumer) {
-            consumer.subscribe(Collections.singletonList(KafkaConfig.TOPIC));
-            while (true) {
-                ConsumerRecords<Long, Person> consumerRecords = consumer.poll(TEN_MILLISECONDS_INTERVAL);
-                for (ConsumerRecord<Long, Person> cr : consumerRecords) {
-                    logger.info("Received record: key={}, value={}, partition={}, offset={}",
-                            cr.key(), cr.value(), cr.partition(), cr.offset());
+
+        /***
+         * Создание и запуск консамеров в трех потоках
+         */
+        for (int i = 0; i < KafkaConfig.NUM_CONSUMERS; i++) {
+
+            new Thread(() -> {
+                KafkaConsumer<Long, Person> consumer = new KafkaConsumer<>(KafkaConfig.getConsumerConfig());
+                consumer.subscribe(Collections.singletonList(KafkaConfig.TOPIC));
+
+                /** Возможно использовать try-with-resources */
+                try {
+                    while (true) {
+                        ConsumerRecords<Long, Person> records = consumer.poll(TEN_MILLISECONDS_INTERVAL);
+                        for (ConsumerRecord<Long, Person> cr : records) {
+                            logger.info("Consumer {}. Received message: key={}, value={}, partition={}, offset={}",
+                                    Thread.currentThread().getName(), cr.key(), cr.value(), cr.partition(), cr.offset());
+                        }
+                    }
+                } catch (Exception e) {
+                    logger.error("Exception occurred in consumer thread", e);
+                } finally {
+                    consumer.close();
                 }
-            }
+            }).start();
+
         }
     }
+
 }

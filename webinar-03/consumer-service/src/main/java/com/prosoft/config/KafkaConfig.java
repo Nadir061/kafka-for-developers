@@ -12,20 +12,67 @@ import java.util.Properties;
  */
 public class KafkaConfig {
 
-    public static final String TOPIC = "topic2";
+    public static final String TOPIC = "topic3";
+    public static final int NUM_CONSUMERS = 3;
 
     private static final String BOOTSTRAP_SERVERS = "localhost:9091, localhost:9092, localhost:9093";
     private static final String GROUP_ID = "my-consumer-group";
 
-    private KafkaConfig() { }
+    private KafkaConfig() {
+    }
 
     public static Properties getConsumerConfig() {
         Properties properties = new Properties();
+
         /** Подключения к Kafka-брокеру BOOTSTRAP_SERVERS */
         properties.put(ConsumerConfig.BOOTSTRAP_SERVERS_CONFIG, BOOTSTRAP_SERVERS);
 
         /** Идентификатор группы потребителей (consumer group ID) */
         properties.put(ConsumerConfig.GROUP_ID_CONFIG, GROUP_ID);
+
+        /**
+         * heartbeat.interval.ms определяет частоту отправки сигналов "heartbeat" (сердцебиение) от потребителя к группе
+         * координации (group coordinator) для поддержания его членства в группе.
+         * Значение по умолчанию составляет 3 сек. (3000 миллисекунд).
+         */
+        properties.put(ConsumerConfig.HEARTBEAT_INTERVAL_MS_CONFIG, 3000);
+
+        /***
+         * session.timeout.ms определяет максимальное время, в течение которого потребитель (consumer) должен отправить
+         * координатору группы сигнал "heartbeat". Если за это время сигнал не будет получен, координатор группы считает
+         * потребителя недоступным и инициирует процедуру ребалансировки.
+         * Значение по умолчанию составляет 10 секунд (10000 миллисекунд).
+         */
+        properties.put(ConsumerConfig.SESSION_TIMEOUT_MS_CONFIG, 10000);
+
+        /**
+         * max.poll.interval.ms определяет максимальный интервал времени между вызовами метода poll() потребителем (consumer).
+         * Если этот интервал превышен, координатор группы считает, что потребитель вышел из строя, и инициирует процедуру
+         * ребалансировки, назначая партиции другому потребителю в группе.
+         * Значение по умолчанию составляет 5 минут (300000 миллисекунд).
+         */
+        properties.put(ConsumerConfig.MAX_POLL_INTERVAL_MS_CONFIG, 300000);
+
+        /** Включение автоматической фиксации смещений (enable.auto.commit = true).
+         * По умолчанию параметр enable.auto.commit установлен в true - потребитель автоматически фиксирует оффсет после
+         * обработки каждого пакета сообщений
+         */
+        properties.put(ConsumerConfig.ENABLE_AUTO_COMMIT_CONFIG, "true");
+
+        /**
+         * max.partition.fetch.bytes определяет максимальное количество данных, которое потребитель может получить
+         * с одной партиции в одном вызове fetch (в одном пакете).
+         * Значение по умолчанию составляет 1 мегабайт (1048576 байт).
+         */
+        properties.put(ConsumerConfig.MAX_PARTITION_FETCH_BYTES_CONFIG, 1048576);
+
+        /**
+         * max.poll.records - контролирует максимальное количество записей, которое потребитель может получить в одном
+         * вызове метода poll(). Он позволяет ограничить количество сообщений, которое потребитель может обработать
+         * за один раз, что может быть полезно для контроля нагрузки на потребителя.
+         * Значение по умолчанию: 500.
+         */
+        properties.put(ConsumerConfig.MAX_POLL_RECORDS_CONFIG, 500);
 
         /** Использование LongDeserializer для десериализации ключей (Key) */
         properties.put(ConsumerConfig.KEY_DESERIALIZER_CLASS_CONFIG, LongDeserializer.class.getName());
@@ -41,6 +88,8 @@ public class KafkaConfig {
          * за пределами диапазона доступных смещений.
          * */
         properties.put(ConsumerConfig.AUTO_OFFSET_RESET_CONFIG, "earliest");
+
+
         return properties;
     }
 }
