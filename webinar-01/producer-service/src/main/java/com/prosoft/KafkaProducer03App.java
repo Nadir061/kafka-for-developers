@@ -28,6 +28,8 @@ public class KafkaProducer03App {
 
                 /**
                  * Отправка сообщения в тему KafkaConfig.TOPIC с использованием метод send с Callback.
+                 *
+                 * @return Future объект, представляющий асинхронный результат отправки сообщения.
                  */
                 Future<RecordMetadata> future = producer.send(producerRecord, (metadata, exception) -> {
                     if (exception != null) {
