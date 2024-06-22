@@ -2,11 +2,16 @@ package com.prosoft;
 
 import com.prosoft.config.KafkaConfig;
 import org.apache.kafka.clients.admin.AdminClient;
+import org.apache.kafka.clients.admin.DeleteTopicsResult;
+import org.apache.kafka.clients.admin.ListTopicsResult;
 import org.apache.kafka.clients.admin.NewTopic;
+import org.apache.kafka.common.KafkaFuture;
+import org.apache.kafka.common.errors.TopicExistsException;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import java.util.List;
+import java.util.Set;
 import java.util.concurrent.ExecutionException;
 
 /**
@@ -17,6 +22,7 @@ public class KafkaAdminApp {
     private static final Logger logger = LoggerFactory.getLogger(KafkaAdminApp.class);
 
     public static void main(String[] args) {
+        deleteAllTopics();
         createTopics(List.of("my-topic", "my-topic2", "my-topic3"));
     }
 
@@ -27,6 +33,19 @@ public class KafkaAdminApp {
      */
     private static void createTopics(List<String> topicNames) {
         try (AdminClient adminClient = AdminClient.create(KafkaConfig.getAdminConfig())) {
+
+            /** Получение списка существующих топиков */
+            Set<String> existingTopics = adminClient.listTopics().names().get();
+
+            /** Фильтрация названий топиков, которые уже существуют */
+            List<String> newTopicNames = topicNames.stream()
+                    .filter(topicName -> !existingTopics.contains(topicName))
+                    .toList();
+
+            if (newTopicNames.isEmpty()) {
+                logger.info("No new topics to create.");
+                return;
+            }
 
             /** Количество партиций для топика */
             int numPartitions = 3;
@@ -46,11 +65,63 @@ public class KafkaAdminApp {
                     .map(topicName -> new NewTopic(topicName, numPartitions, replicationFactor))
                     .toList();
 
-            adminClient.createTopics(newTopics).all().get();
-            logger.info("Топики '{}' успешно созданы.", topicNames);
-
+            createTopics(adminClient, newTopics, newTopicNames);
         } catch (InterruptedException | ExecutionException e) {
             logger.error("Ошибка при создании топика", e);
+            Thread.currentThread().interrupt();
+        }
+    }
+
+    private static void createTopics(AdminClient adminClient, List<NewTopic> newTopics, List<String> newTopicNames) throws InterruptedException, ExecutionException {
+        try {
+            adminClient.createTopics(newTopics).all().get();
+            logger.info("Топики '{}' успешно созданы.", newTopicNames);
+        } catch (ExecutionException e) {
+            if (e.getCause() instanceof TopicExistsException) {
+                logger.warn("Some topics already exist: {}", e.getMessage());
+            } else {
+                throw e;
+            }
+        }
+    }
+
+    /**
+     * deleteAllTopics() - статический метод для удаления топиков.
+     */
+    public static void deleteAllTopics() {
+
+        try (AdminClient adminClient = AdminClient.create(KafkaConfig.getAdminConfig())) {
+
+            /** Получение списка всех топиков */
+            ListTopicsResult listTopicsResult = adminClient.listTopics();
+            KafkaFuture<Set<String>> namesFuture = listTopicsResult.names();
+
+            Set<String> topicNames = namesFuture.get();
+            logger.info("Found topics: {}", topicNames);
+
+            if (topicNames.isEmpty()) {
+                logger.info("No topics to delete.");
+            } else {
+                /** Удаление всех топиков */
+                DeleteTopicsResult deleteTopicsResult = adminClient.deleteTopics(topicNames);
+
+                KafkaFuture<Void> allDeletedFuture = deleteTopicsResult.all();
+
+                /** Обработка результата удаления */
+                allDeletedFuture.whenComplete((result, exception) -> {
+                    if (exception == null) {
+                        logger.info("All topics deleted successfully.");
+                    } else {
+                        logger.error("Failed to delete topics", exception);
+                    }
+                });
+
+                /** Ожидание завершения асинхронной операции (блокирующий вызов) */
+                allDeletedFuture.get();
+            }
+
+        } catch (ExecutionException | InterruptedException e) {
+            logger.error("Error deleting Kafka topics", e);
             Thread.currentThread().interrupt();
         }
     }
