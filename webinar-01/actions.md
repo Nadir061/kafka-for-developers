@@ -15,7 +15,7 @@ docker exec -ti kafka /usr/bin/kafka-topics --list --bootstrap-server kafka:9093
 
 `4.` Создаем новый "topic1"
 ```shell
-`docker exec -ti kafka /usr/bin/kafka-topics --create --topic topic1 --bootstrap-server localhost:9093
+docker exec -ti kafka /usr/bin/kafka-topics --create --topic topic1 --bootstrap-server localhost:9093
 ```
 
 `5.` Отправляем сообщение "topic1": появляется консоль ввода сообщений, вводим сообщение одно за другим, разделяя Enter и в конце нажимаем в Win ctrl+D (в MacOS: control+C)
