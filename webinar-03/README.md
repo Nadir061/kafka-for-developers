@@ -63,3 +63,58 @@ docker exec -ti kafka1 /usr/bin/kafka-topics --create --topic topic3 --partition
       + закрытие .close();
       - закрытие consumer.close(Duration.ofSeconds(10)). 
 ```
+
+### Demo's description
+Класс KafkaProducerApp выполняет роль Kafka продюсера, который отправляет объекты класса Person в указанный Kafka топик.
+Конфигурация продюсера берется из класса KafkaConfig. KafkaProducerApp отправляет 10 сообщений (MAX_MESSAGE).
+Для каждого сообщения создается объект класса Person с уникальными данными. Создается объект ProducerRecord, 
+который содержит информацию о топике, ключе и значении (объекте Person).
+Сообщения отправляются в Kafka с использованием метода producer.send(), который принимает объект ProducerRecord и 
+анонимный класс Callback для обработки результата отправки.
+При успешной отправке сообщения логируется информация о ключе, значении, партиции и смещении.
+
+Класс KafkaConsumerApp выполняет роль Kafka-потребителя, предназначенное для чтения сообщений из Kafka-топика (topic3) 
+с использованием клиентской библиотеки Apache Kafka. Класс настраивает и запускает несколько потребителей Kafka в отдельных 
+потоках для параллельного чтения сообщений из Kafka-топика.
+Каждый экземпляр потребителя подписывается на один топик (topic3) с помощью consumer.subscribe().
+В бесконечном цикле (while (true)) каждый потребитель выполняет опрос записей ConsumerRecords<Long, Person> 
+и для каждой полученной записи выаодит в лог: ключ, значение, раздел и смещение, с использованием SLF4J.
+```txt
+webinar-03
+├── consumer-service
+│   ├── build
+│   └── src
+│       ├── main
+│       │   ├── java
+│       │   │   └── com.prosoft
+│       │   │       ├── config
+│       │   │       │   └── KafkaConfig - настройки конфигурации потребителя Kafka
+│       │   │       ├── deserializer
+│       │   │       │   └── PersonDeserializer
+│       │   │       ├── domain
+│       │   │       │   └── Person - Класс-домен, представляющий отправляемые объекты
+│       │   │       └── KafkaConsumerApp
+│       │   └── resources
+│       └── test
+│           └── build.gradle.kts
+├── producer-service
+│   ├── build
+│   └── src
+│       ├── main
+│       │   ├── java
+│       │   │   └── com.prosoft
+│       │   │       ├── config
+│       │   │       │   └── KafkaConfig - настройки конфигурации отправителя Kafka
+│       │   │       ├── domain
+│       │   │       │   └── Person - класс-домен, представляющий принмаемые объекты
+│       │   │       ├── serializer
+│       │   │       │   └── PersonSerializer
+│       │   │       └── KafkaProducerApp
+│       │   └── resources
+│       └── test
+│           └── build.gradle.kts
+├── actions.md
+├── build.gradle.kts
+├── docker-compose.yaml
+└── README.md
+```
