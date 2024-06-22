@@ -15,8 +15,8 @@ docker exec -ti kafka1 /usr/bin/kafka-topics --create --topic topic3 --partition
 
 ## ConsumerConfig
 
-См. [KafkaConfig.java](consumer-service%2Fsrc%2Fmain%2Fjava%2Fcom%2Fprosoft%2Fconfig%2FKafkaConfig.java)
-    [KafkaConfig.java](producer-service%2Fsrc%2Fmain%2Fjava%2Fcom%2Fprosoft%2Fconfig%2FKafkaConfig.java)
+См. [KafkaConfig.java](consumer-service%2Fsrc%2Fmain%2Fjava%2Fcom%2Fprosoft%2Fconfig%2FKafkaConfig.java)  
+    [KafkaConfig.java](producer-service%2Fsrc%2Fmain%2Fjava%2Fcom%2Fprosoft%2Fconfig%2FKafkaConfig.java)  
 
 
 ## Features list
