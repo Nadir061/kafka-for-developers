@@ -16,10 +16,16 @@ import java.util.concurrent.ExecutionException;
  */
 public class CreateTopics {
 
-    private static final Logger logger = LoggerFactory.getLogger(KafkaAdminApp.class);
+    private static final Logger logger = LoggerFactory.getLogger(CreateTopics.class);
 
     public static void main(String[] args) {
+        simpleCreate();
+    }
 
+    /**
+     * Простое создание Топиков
+     */
+    private static void simpleCreate() {
         try (AdminClient adminClient = AdminClient.create(KafkaConfig.getAdminConfig())) {
 
             /** Название создаваемых топиков */
