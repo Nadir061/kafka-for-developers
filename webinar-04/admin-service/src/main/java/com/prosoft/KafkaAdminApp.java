@@ -26,6 +26,7 @@ public class KafkaAdminApp {
         createTopics(List.of("my-topic", "my-topic2", "my-topic3"));
         describeTopics();
         describeTopicPartitions("my-topic3");
+        addPartitionsToTopic("my-topic3", 5);
     }
 
     /**
@@ -200,6 +201,34 @@ public class KafkaAdminApp {
 
         } catch (InterruptedException | ExecutionException e) {
             logger.error("Failed to describe partitions for topic {}", topicName, e);
+            Thread.currentThread().interrupt();
+        }
+    }
+
+    /**
+     * Метод addPartitionsToTopic() добавляет партиций в Топик.
+     *
+     * @param topicName  Название топика.
+     * @param totalCount Новое общее количество партиций.
+     */
+    public static void addPartitionsToTopic(String topicName, int totalCount) {
+        try (AdminClient adminClient = AdminClient.create(KafkaConfig.getAdminConfig())) {
+
+            /** Создание объекта NewPartitions с новым общим количеством партиций */
+            NewPartitions newPartitions = NewPartitions.increaseTo(totalCount);
+
+            /** Создание Map с топиком и количеством новых партиций */
+            Map<String, NewPartitions> newPartitionsMap = Map.of(topicName, newPartitions);
+
+            /** Создание партиции */
+            CreatePartitionsResult createPartitionsResult = adminClient.createPartitions(newPartitionsMap);
+
+            /** Обработка результат создания партиций */
+            createPartitionsResult.all().get();
+            logger.info("Партиции успешно добавлены к топику '{}'. Новое количество партиций: {}", topicName, totalCount);
+
+        } catch (InterruptedException | ExecutionException e) {
+            logger.error("Ошибка при добавлении партиций к топику {}", topicName, e);
             Thread.currentThread().interrupt();
         }
     }
