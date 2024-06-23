@@ -241,5 +241,20 @@ public class KafkaAdminApp {
 
     //todo добавить пример Удаление записей: DeleteRecordsResult, RecordsToDelete
 
+    //todo добавить пример Consumer group: ListConsumerGroupsResult, DescribeConsumerGroupsResult, DeleteConsumerGroupsResult, ListConsumerGroupOffsetsResult, ListConsumerGroupOffsetsSpec, DeleteConsumerGroupOffsetsResult, AlterConsumerGroupOffsetsResult
+
+    //todo добавить пример Управление ACL: CreateAclsResult, AclBinding, ResourcePattern, AccessControlEntry, DeleteAclsResult, DescribeAclsResult, AclBindingFilter, ResourcePatternFilter, AccessControlEntryFilter
+
+    //todo добавить пример Управление квотами: AlterClientQuotasResult, ClientQuotaAlteration, ClientQuotaEntity, Op, DescribeClientQuotasResult, ClientQuotaFilter, ClientQuotaFilterComponent
+
+    //todo добавить пример Настройка топиков и брокеров: AlterConfigsResult, ConfigResource, ConfigEntry, DescribeConfigsResult
+
+    //todo добавить пример Описание кластера: DescribeClusterResult, DescribeClusterResult
+
+
+
+
+
+
 
 }
