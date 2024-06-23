@@ -13,6 +13,7 @@ import java.util.Arrays;
 import java.util.Collections;
 import java.util.List;
 import java.util.concurrent.ExecutionException;
+import java.util.concurrent.atomic.AtomicBoolean;
 
 /**
  * Класс CreateTopics содержит статические методы работы с Топиками через AdminClient
@@ -131,11 +132,17 @@ public class CreateTopics {
     }
 
     /**
-     * Проверка возможности создания топика с использованием validateOnly
-     * Метод validateTopicCreation() проверяет возможность создания топика без фактического его создания
-     * с помощью установки validateOnly в true в объекте CreateTopicsOptions.
+     * Метод validateTopicCreation() проверяет возможность создания топика в Apache Kafka.
+     * Использует AdminClient для асинхронной проверки возможности создания топика с указанным именем.
+     * Возвращает true, если топик может быть создан, иначе false.
+     *
+     * @param topicName Название топика, который требуется проверить на возможность создания.
+     * @return true, если топик может быть создан; false, если создание топика невозможно.
      */
-    private static void validateTopicCreation(String topicName) {
+    private static boolean validateTopicCreation(String topicName) {
+
+        /** Использование атомарной переменной обеспечивает безопасность работы с данными в многопоточных приложениях. */
+        AtomicBoolean isValid = new AtomicBoolean(false);
 
         /** Создание AdminClient с использованием конфигурации из KafkaConfig и блока try-with-resources */
         try (AdminClient adminClient = AdminClient.create(KafkaConfig.getAdminConfig())) {
@@ -158,8 +165,10 @@ public class CreateTopics {
             adminClient.createTopics(Collections.singleton(newTopic), options).all().whenComplete((results, exception) -> {
                 if (exception == null) {
                     logger.info("Проверка прошла успешно: Топик может быть создан.");
+                    isValid.set(true);
                 } else {
                     logger.error("Ошибка проверки: Топик не может быть создан", exception);
+                    isValid.set(false);
                 }
             }).get();
 
@@ -167,6 +176,7 @@ public class CreateTopics {
             logger.error("Ошибка при проверке Топика", e);
             Thread.currentThread().interrupt();
         }
+        return isValid.get();
     }
 
 }
