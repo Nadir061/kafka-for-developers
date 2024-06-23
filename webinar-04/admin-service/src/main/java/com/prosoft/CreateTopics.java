@@ -12,6 +12,7 @@ import org.slf4j.LoggerFactory;
 import java.util.Arrays;
 import java.util.Collections;
 import java.util.List;
+import java.util.Map;
 import java.util.concurrent.ExecutionException;
 import java.util.concurrent.atomic.AtomicBoolean;
 
@@ -26,6 +27,7 @@ public class CreateTopics {
         simpleCreate();
         createWithKafkaFuture();
         validateTopicCreation("my-topic5");
+        createTopicWithCustomReplication();
     }
 
     /**
@@ -177,6 +179,42 @@ public class CreateTopics {
             Thread.currentThread().interrupt();
         }
         return isValid.get();
+    }
+
+    /**
+     * Создание топика с ручным заданием репликации для каждой партиции
+     */
+    private static void createTopicWithCustomReplication() {
+        try (AdminClient adminClient = AdminClient.create(KafkaConfig.getAdminConfig())) {
+            String topicName = "my-topic5";
+
+            /**
+             * Map с указанием репликации для каждой партиции
+             */
+            Map<Integer, List<Integer>> partitionReplicas = Map.of(
+                    0, List.of(2, 3), // Партиция 0 с репликами на брокерах 2 и 3
+                    1, List.of(2, 3)      // Партиция 1 с репликами на брокерах 2 и 3
+            );
+
+            NewTopic newTopic = new NewTopic(topicName, partitionReplicas);
+
+            CreateTopicsResult createTopicsResult = adminClient.createTopics(Collections.singleton(newTopic));
+            KafkaFuture<Void> future = createTopicsResult.all();
+
+            future.whenComplete((result, exception) -> {
+                if (exception == null) {
+                    logger.info("Топик '{}' успешно создан с репликацией: {}", topicName, partitionReplicas);
+                } else {
+                    logger.error("Ошибка при создании топика '{}'", topicName, exception);
+                }
+            });
+
+            future.get();
+
+        } catch (InterruptedException | ExecutionException e) {
+            logger.error("Ошибка при создании топика", e);
+            Thread.currentThread().interrupt();
+        }
     }
 
 }
