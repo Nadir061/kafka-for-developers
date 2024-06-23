@@ -2,6 +2,7 @@ package com.prosoft;
 
 import com.prosoft.config.KafkaConfig;
 import org.apache.kafka.clients.admin.AdminClient;
+import org.apache.kafka.clients.admin.CreateTopicsOptions;
 import org.apache.kafka.clients.admin.CreateTopicsResult;
 import org.apache.kafka.clients.admin.NewTopic;
 import org.apache.kafka.common.KafkaFuture;
@@ -14,7 +15,7 @@ import java.util.List;
 import java.util.concurrent.ExecutionException;
 
 /**
- * Simple creation of topics
+ * Класс CreateTopics содержит статические методы работы с Топиками через AdminClient
  */
 public class CreateTopics {
 
@@ -23,6 +24,7 @@ public class CreateTopics {
     public static void main(String[] args) {
         simpleCreate();
         createWithKafkaFuture();
+        validateTopicCreation("my-topic5");
     }
 
     /**
@@ -78,6 +80,9 @@ public class CreateTopics {
         /** Создание AdminClient с использованием конфигурации из KafkaConfig и блока try-with-resources */
         try (AdminClient adminClient = AdminClient.create(KafkaConfig.getAdminConfig())) {
 
+            /** Название создаваемого топика */
+            String topicName = "my-topic4";
+
             /** Кол-во партиций для топика */
             int numPartitions = 3;
 
@@ -87,7 +92,7 @@ public class CreateTopics {
             short replicationFactor = 2;
 
             /** Создается объект NewTopic с указанными параметрами */
-            NewTopic newTopic = new NewTopic("my-topic1", numPartitions, replicationFactor);
+            NewTopic newTopic = new NewTopic(topicName, numPartitions, replicationFactor);
 
             /** Формирование запроса в AdminClient на создание топика с использованием метода .createTopics() */
             CreateTopicsResult createTopicsResult = adminClient.createTopics(Collections.singleton(newTopic));
@@ -121,6 +126,45 @@ public class CreateTopics {
 
         } catch (Exception e) {
             logger.error("Error creating Kafka topic", e);
+            Thread.currentThread().interrupt();
+        }
+    }
+
+    /**
+     * Проверка возможности создания топика с использованием validateOnly
+     * Метод validateTopicCreation() проверяет возможность создания топика без фактического его создания
+     * с помощью установки validateOnly в true в объекте CreateTopicsOptions.
+     */
+    private static void validateTopicCreation(String topicName) {
+
+        /** Создание AdminClient с использованием конфигурации из KafkaConfig и блока try-with-resources */
+        try (AdminClient adminClient = AdminClient.create(KafkaConfig.getAdminConfig())) {
+
+            /** Количество партиций для топика */
+            int numPartitions = 3;
+
+            /** Фактор репликации для топика */
+            short replicationFactor = 1;
+
+            /** Создание объекта NewTopic */
+            NewTopic newTopic = new NewTopic(topicName, numPartitions, replicationFactor);
+
+            /** Создание объекта CreateTopicsOptions и установка validateOnly в true
+             * Если установлено в true, то метод будет только проверять, могут ли топики быть созданы, без фактического их создания.
+             */
+            CreateTopicsOptions options = new CreateTopicsOptions().validateOnly(true);
+
+            /** Вызов метода createTopics с установленными опциями */
+            adminClient.createTopics(Collections.singleton(newTopic), options).all().whenComplete((results, exception) -> {
+                if (exception == null) {
+                    logger.info("Проверка прошла успешно: Топик может быть создан.");
+                } else {
+                    logger.error("Ошибка проверки: Топик не может быть создан", exception);
+                }
+            }).get();
+
+        } catch (InterruptedException | ExecutionException e) {
+            logger.error("Ошибка при проверке Топика", e);
             Thread.currentThread().interrupt();
         }
     }
