@@ -29,6 +29,8 @@ public class CreateTopics {
      * Простое создание Топиков
      */
     private static void simpleCreate() {
+
+        /** Создание AdminClient с использованием конфигурации из KafkaConfig и блока try-with-resources */
         try (AdminClient adminClient = AdminClient.create(KafkaConfig.getAdminConfig())) {
 
             /** Название создаваемых топиков */
@@ -68,24 +70,40 @@ public class CreateTopics {
 
     /**
      * Создание Топика с использованием KafkaFuture
+     * Метод createWithKafkaFuture() предназначен для создания топика в Kafka с использованием KafkaFuture
+     * для асинхронной обработки результата
      */
     private static void createWithKafkaFuture() {
 
+        /** Создание AdminClient с использованием конфигурации из KafkaConfig и блока try-with-resources */
         try (AdminClient adminClient = AdminClient.create(KafkaConfig.getAdminConfig())) {
 
             /** Кол-во партиций для топика */
             int numPartitions = 3;
 
-            /** Фактор репликации для топика (replication factor)
-             * 2 - означает, что каждый раздел топика будет иметь две реплики: одна из них будет лидером, а вторая будет репликой. Это обеспечивает отказоустойчивость, так как данные будут доступны для чтения и записи, даже если один из брокеров станет недоступным.
-             */
+            /** Фактор репликации для топика (replication factor): 2 - означает, что каждый раздел топика будет иметь
+             * две реплики: одна из них будет лидером, а вторая будет репликой. Это обеспечивает отказоустойчивость,
+             * так как данные будут доступны для чтения и записи, даже если один из брокеров станет недоступным.*/
             short replicationFactor = 2;
 
+            /** Создается объект NewTopic с указанными параметрами */
             NewTopic newTopic = new NewTopic("my-topic1", numPartitions, replicationFactor);
+
+            /** Формирование запроса в AdminClient на создание топика с использованием метода .createTopics() */
             CreateTopicsResult createTopicsResult = adminClient.createTopics(Collections.singleton(newTopic));
 
+            /** Получение KafkaFuture: возвращается объект KafkaFuture, который является асинхронным результатом создания топика.
+             * Метод .all() в классе CreateTopicsResult возвращает единый `KafkaFuture<Void>`, который завершится успешно,
+             * если все топики были успешно созданы.
+             * Если создание любого из топиков завершится с ошибкой, этот `KafkaFuture` также завершится с ошибкой. */
             KafkaFuture<Void> future = createTopicsResult.all();
 
+            /** Обработка результата создания топика:
+             *  Метод whenComplete используется для обработки результата создания топика:
+             *  1) если exception равен null, значит, топик успешно создан, и выводится сообщение об успехе;
+             *  2) если exception не равен null, значит, произошла ошибка, и выводится сообщение об ошибке с информацией
+             *  о возникшем исключении.
+             *  */
             future.whenComplete((result, exception) -> {
                 if (exception == null) {
                     logger.info("Topic created successfully.");
@@ -95,7 +113,9 @@ public class CreateTopics {
             });
 
             /**
-             * Блокирующий вызов для демонстрации
+             * Блокирующий вызов для демонстрации.
+             * Этот вызов блокирует выполнение потока до завершения асинхронной операции создания топика.
+             * Здесь это используется для демонстрации, но в реальных приложениях лучше избегать блокирующих вызовов.
              */
             future.get();
 
