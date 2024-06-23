@@ -52,8 +52,55 @@ Kafka с тремя брокерами (репликацией) для повы�
    - Удаление записей:
       - Класс DeleteRecordsResult
       - Класс RecordsToDelete
+      - (to-do добавить демо)
    - Consumer group:
-      -    
+      - Класс ListConsumerGroupsResult
+      - Класс DescribeConsumerGroupsResult
+      - Класс DeleteConsumerGroupsResult
+      - Класс ListConsumerGroupOffsetsResult
+      - Класс ListConsumerGroupOffsetsSpec
+      - Класс DeleteConsumerGroupOffsetsResult
+      - Класс AlterConsumerGroupOffsetsResult
+      - (to-do добавить демо)
+4) Авторизация:
+   - Управление ACL:
+      - Класс CreateAclsResult
+      - Класс AclBinding
+      - Класс ResourcePattern
+      - Класс AccessControlEntry
+      - Класс DeleteAclsResult
+      - Класс DescribeAclsResult
+      - Класс AclBindingFilter
+      - Класс ResourcePatternFilter
+      - Класс AccessControlEntryFilter
+      - (to-do добавить демо)
+   - Управление квотами:
+      - Класс AlterClientQuotasResult
+      - Класс ClientQuotaAlteration
+      - Класс ClientQuotaEntity
+      - Класс Op
+      - Класс DescribeClientQuotasResult
+      - Класс ClientQuotaFilter
+      - Класс ClientQuotaFilterComponent
+      - (to-do добавить демо)   
+5) Прочее:
+   - Настройка топиков и брокеров:
+      - Класс AlterConfigsResult
+      - Класс ConfigResource
+      - Класс ConfigEntry
+      - Класс DescribeConfigsResult
+      - (to-do добавить демо)
+   - Описание кластера:
+      - Класс DescribeClusterResult
+      - Класс DescribeClusterResult
+      - (to-do добавить демо)
+         
+   
+   
+      
+      
+      
+         
          
       
    
