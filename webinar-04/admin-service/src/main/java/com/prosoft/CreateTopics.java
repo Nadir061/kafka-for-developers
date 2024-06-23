@@ -193,8 +193,8 @@ public class CreateTopics {
              * Map с указанием репликации для каждой партиции
              */
             Map<Integer, List<Integer>> partitionReplicas = Map.of(
-                    0, List.of(2, 3), // Партиция 0 с репликами на брокерах 2 и 3
-                    1, List.of(2, 3)      // Партиция 1 с репликами на брокерах 2 и 3
+                    0, List.of(2, 3),     // Партиция 0 с репликами на брокерах 2 и 3
+                        1, List.of(2, 3)      // Партиция 1 с репликами на брокерах 2 и 3
             );
 
             NewTopic newTopic = new NewTopic(topicName, partitionReplicas);
