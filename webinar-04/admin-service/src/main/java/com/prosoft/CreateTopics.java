@@ -24,6 +24,7 @@ public class CreateTopics {
     private static final Logger logger = LoggerFactory.getLogger(CreateTopics.class);
 
     public static void main(String[] args) {
+        KafkaAdminApp.deleteAllTopics();
         simpleCreate();
         createWithKafkaFuture();
         validateTopicCreation("my-topic5");
