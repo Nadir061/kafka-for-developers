@@ -233,4 +233,13 @@ public class KafkaAdminApp {
         }
     }
 
+    //todo добавить пример Перемещания партиций: AlterPartitionReassignmentsResult, NewPartitionReassignment, ListPartitionReassignmentsResult, PartitionReassignment
+
+    //todo добавить пример Хранение в файловой системе: DescribeLogDirsResult, LogDirDescription, DescribeReplicaLogDirsResult, ReplicaLogDirInfo, AlterReplicaLogDirsResult
+
+    //todo добавить пример Управление транзакциями: DescribeTransactionsResult, AbortTransactionResult, ListTransactionsResult
+
+    //todo добавить пример Удаление записей: DeleteRecordsResult, RecordsToDelete
+
+
 }
