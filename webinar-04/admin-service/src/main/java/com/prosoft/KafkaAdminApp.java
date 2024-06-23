@@ -3,10 +3,12 @@ package com.prosoft;
 import com.prosoft.config.KafkaConfig;
 import org.apache.kafka.clients.admin.*;
 import org.apache.kafka.common.KafkaFuture;
+import org.apache.kafka.common.TopicPartitionInfo;
 import org.apache.kafka.common.errors.TopicExistsException;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+import java.util.Collection;
 import java.util.List;
 import java.util.Map;
 import java.util.Set;
@@ -23,6 +25,7 @@ public class KafkaAdminApp {
         deleteAllTopics();
         createTopics(List.of("my-topic", "my-topic2", "my-topic3"));
         describeTopics();
+        describeTopicPartitions("my-topic3");
     }
 
     /**
@@ -156,6 +159,47 @@ public class KafkaAdminApp {
             describeTopicsResult.all().get();
         } catch (InterruptedException | ExecutionException e) {
             logger.error("Ошибка при описании топиков", e);
+            Thread.currentThread().interrupt();
+        }
+    }
+
+    /**
+     * Метод для описания всех партиций указанного топика Kafka.
+     *
+     * @param topicName Название топика, для которого нужно получить информацию о партициях.
+     */
+    public static void describeTopicPartitions(String topicName) {
+
+        /** Создание экземпляра AdminClient с использованием конфигурации Kafka, полученной из класса KafkaConfig. */
+        try (AdminClient adminClient = AdminClient.create(KafkaConfig.getAdminConfig())) {
+
+            /** Получение объекта DescribeTopicsResult, который представляет асинхронный результат описания топиков. */
+            DescribeTopicsResult describeTopicsResult = adminClient.describeTopics(Set.of(topicName));
+
+            /** Вызов метода all() возвращает карту (Map), содержащую описание каждого топика, включая только один
+             * топик topicName. Метод get() блокирует выполнение до тех пор, пока асинхронная операция не завершится,
+             * и возвращает результат описания топиков.
+             */
+            Map<String, TopicDescription> topicDescriptionMap = describeTopicsResult.all().get();
+
+            /** Извлечение описания конкретного топика */
+            TopicDescription topicDescription = topicDescriptionMap.get(topicName);
+
+            /** Получение информации о партициях. Метод partitions() объекта TopicDescription, который возвращает
+             * коллекцию TopicPartitionInfo. Каждый элемент коллекции представляет информацию о каждой партиции топика.
+             */
+            Collection<TopicPartitionInfo> partitions = topicDescription.partitions();
+
+            partitions.forEach(partitionInfo ->
+                logger.info("Partition: {}, Leader: {}, Replicas: {}, ISR: {}",
+                        partitionInfo.partition(),
+                        partitionInfo.leader(),
+                        partitionInfo.replicas(),
+                        partitionInfo.isr())
+            );
+
+        } catch (InterruptedException | ExecutionException e) {
+            logger.error("Failed to describe partitions for topic {}", topicName, e);
             Thread.currentThread().interrupt();
         }
     }
