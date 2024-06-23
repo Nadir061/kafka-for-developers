@@ -1,16 +1,14 @@
 package com.prosoft;
 
 import com.prosoft.config.KafkaConfig;
-import org.apache.kafka.clients.admin.AdminClient;
-import org.apache.kafka.clients.admin.DeleteTopicsResult;
-import org.apache.kafka.clients.admin.ListTopicsResult;
-import org.apache.kafka.clients.admin.NewTopic;
+import org.apache.kafka.clients.admin.*;
 import org.apache.kafka.common.KafkaFuture;
 import org.apache.kafka.common.errors.TopicExistsException;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import java.util.List;
+import java.util.Map;
 import java.util.Set;
 import java.util.concurrent.ExecutionException;
 
@@ -24,6 +22,7 @@ public class KafkaAdminApp {
     public static void main(String[] args) {
         deleteAllTopics();
         createTopics(List.of("my-topic", "my-topic2", "my-topic3"));
+        describeTopics();
     }
 
     /**
@@ -117,6 +116,46 @@ public class KafkaAdminApp {
 
         } catch (ExecutionException | InterruptedException e) {
             logger.error("Error deleting Kafka topics", e);
+            Thread.currentThread().interrupt();
+        }
+    }
+
+    /**
+     * describeTopics() - статический метод для описания топиков.
+     */
+    private static void describeTopics() {
+        try (AdminClient adminClient = AdminClient.create(KafkaConfig.getAdminConfig())) {
+            ListTopicsResult listTopicsResult = adminClient.listTopics();
+            KafkaFuture<Set<String>> namesFuture = listTopicsResult.names();
+
+            Set<String> topicNames = namesFuture.get();
+            logger.info("Found topics: {}", topicNames);
+
+            if (topicNames.isEmpty()) {
+                logger.info("No topics found.");
+                return;
+            }
+
+            DescribeTopicsResult describeTopicsResult = adminClient.describeTopics(topicNames);
+
+            /** Получение всех результатов описания асинхронно */
+            Map<String, KafkaFuture<TopicDescription>> futures = describeTopicsResult.values();
+
+            /** Обработка каждого Future описания топика */
+            futures.forEach((topicName, future) ->
+                future.whenComplete((topicDescription, exception) -> {
+                    if (exception == null) {
+                        logger.info("Topic: {}, Description: {}", topicName, topicDescription);
+                    } else {
+                        logger.error("Failed to describe topic {}", topicName, exception);
+                    }
+                })
+            );
+
+            /** Ожидание завершения всех асинхронных операций */
+            describeTopicsResult.all().get();
+        } catch (InterruptedException | ExecutionException e) {
+            logger.error("Ошибка при описании топиков", e);
             Thread.currentThread().interrupt();
         }
     }
