@@ -8,10 +8,6 @@ Kafka с одним брокером и двумя портами:
   - порт для приема сообщений:   PLAINTEXT_HOST://localhost:9093
   - порт для отправки сообщений: PLAINTEXT_HOST2://localhost:9094  
 ```
-### ConsumerConfig
-
-```java
-```
 
 ### Features list
 ```txt
@@ -21,19 +17,32 @@ Kafka с одним брокером и двумя портами:
    - Exactly Once
 2) Idempotent Producer
   - режим enable.idempotence=true
-  
+  - PID - идентификатор продюсера
+  - Sequence Number - номер последовательности
+  - max.in.flight.requests.per.connection
+  - retries
 3) Exactly Once
   - Транзакции
+    - ACID в Kafka
     - параметр TRANSACTIONAL_ID_CONFIG
     - .initTransactions()
     - .beginTransaction()
     - .commitTransaction()
     - .abortTransaction()
-    - служебный топик __transaction_state
+    - Transaction Log и служебный топик __transaction_state
     - .sendOffsetsToTransaction()
-  - isolation.level
-    - 
-
-
-
+    - номера Оффсетов при использовании транзакций в Kafka
+    - Transaction Coordinator
+    - transaction.id
+  - Consumer isolation.level: read_uncommitted, read_committed 
+  - Накладные расходы
+    - transaction.timeout.ms - настройка длительности транзакций 
+  - AdminClient
+    - AbortTransactionResult
+    - AbortTransactionSpec
+    - ListTransactionsResult
+    - TransactionListing
+    - TransactionState: Ongoing, PrepareCommit, CompleteCommit, PrepareAbort, CompleteAbort, Empty. 
+    - DescribeTransactionsResult
+  - Реализация механизма защиты от дублирования при вхаимодействии Kafka с внешними системами.
 ```
