@@ -41,6 +41,11 @@ public class KafkaConfig02 {
          */
         properties.put(ProducerConfig.TRANSACTIONAL_ID_CONFIG, "my-transactional-id");
 
+        /** Параметр конфигурации, определяющий максимальное время (в мс), в течение которого транзакция может оставаться
+         * открытой. По умолчанию 60000 мс (1 минута)
+         */
+        properties.put(ProducerConfig.TRANSACTION_TIMEOUT_CONFIG, 600000);
+
         /** Использование StringSerializer для сериализации ключей и значений сообщений. */
         properties.put(ProducerConfig.KEY_SERIALIZER_CLASS_CONFIG, StringSerializer.class.getName());
         properties.put(ProducerConfig.VALUE_SERIALIZER_CLASS_CONFIG, StringSerializer.class.getName());
