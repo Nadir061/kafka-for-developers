@@ -26,7 +26,7 @@ public class KafkaConsumerApp {
             while (true) {
                 ConsumerRecords<String, String> consumerRecords = consumer.poll(TEN_MILLISECONDS_INTERVAL);
                 for (ConsumerRecord<String, String> cr : consumerRecords) {
-                    logger.info("topic = {}, offset = {}, key = {}, value = {}", cr.topic(), cr.offset(), cr.key(), cr.value());
+                    logger.info("topic = {}, key = {}, value = {}, offset = {}", cr.topic(), cr.key(), cr.value(), cr.offset());
                 }
             }
         }
