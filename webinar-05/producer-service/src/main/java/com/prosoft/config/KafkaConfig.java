@@ -31,7 +31,7 @@ public class KafkaConfig {
          *  - acks=1: продюсер будет ждать подтверждения от лидера партиции, но не от всех реплик
          *  - acks=all продюсер будет ждать подтверждений от всех реплик (самая надежная настройка)
          */
-        properties.put(ProducerConfig.ACKS_CONFIG, "0");
+        properties.put(ProducerConfig.ACKS_CONFIG, "all");
 
         /** Использование StringSerializer для сериализации ключей и значений сообщений.
          *  StringSerializer.class в контексте Apache Kafka представляет собой реализацию интерфейса Serializer
