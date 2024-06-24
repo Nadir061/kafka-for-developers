@@ -15,5 +15,20 @@ Kafka с одним брокером и двумя портами:
 
 ### Features list
 ```txt
-   
+1) Гарантии в Kafka
+   - At Most Once
+   - At Least Once
+   - Exactly Once
+2) Idempotent Producer
+  - режим enable.idempotence=true
+  
+3) Exactly Once
+  - параметр TRANSACTIONAL_ID_CONFIG
+  - .initTransactions()
+  - .beginTransaction()
+  - .commitTransaction()
+  - .abortTransaction()
+  - служебный топик __transaction_state
+
+
 ```
