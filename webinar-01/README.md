@@ -1,5 +1,9 @@
 # webinar-01 Introduction to Kafka
-# Apache Kafka Clients for Java
+[![Java](https://img.shields.io/badge/Java-E43222??style=for-the-badge&logo=openjdk&logoColor=FFFFFF)](https://www.java.com/)
+[![Kafka](https://img.shields.io/badge/Kafka-000000??style=for-the-badge&logo=apachekafka)](https://kafka.apache.org/)
+[![Docker](https://img.shields.io/badge/Docker-0E2B62??style=for-the-badge&logo=Docker&logoColor=FFFFFF)](https://www.docker.com/)
+
+## Apache Kafka Clients for Java
 https://mvnrepository.com/artifact/org.apache.kafka/kafka-clients
 
 Apache Kafka Clients for Java является частью проекта Apache Kafka, и она выпускается вместе с основным проектом Kafka
@@ -24,7 +28,71 @@ dependencies {
 }
 ```
 
-### Features list
+## Features list
 ```txt
-1) Настройка Kafka, Zookeeper, Kafdrop 
+1) Подготовка: настройка Kafka, Zookeeper, Kafdrop  
+  - Кластер Kafka
+2) Сообщения и топики
+  - Сообщение в Kафка
+  - Тело сообщения: JSON, XML, Protobuf, Thrift, Avro
+  - Топик  
+  - Offset 
+3) Партиции
+  - Consumer group
+  - Group coordinator
+  - Group leader
+  - Key
+  - Привязка Консюмеров и Партиций
+  - Offset и commit offset, топик топик "__consumer_offset"
+  - rebalance
+4) Репликация
+  - Replication factor
+5) Гарантии 
+  - asks
+  - committed messages и committed offsets
+  - auto_commit
+  - pull-модель и push-модель в брокерах сообщений
+6) API
+  - kafka-clients
+    - Producer API
+    - Consumer API
+    - Admin API
+  - kafka-streams: Stream API
+  - Connect API   
+```
+
+## Demo's description
+```txt
+webinar-01
+├── consumer-service
+│   ├── src
+│   │   ├── main
+│   │   │   ├── java
+│   │   │   │   └── com.prosoft
+│   │   │   │       └── config
+│   │   │   │           ├── KafkaConfig
+│   │   │   │           └── KafkaConsumerApp
+│   │   │   ├── resources
+│   │   │   │   └── logback.xml
+│   │   ├── test
+│   │       └── build.gradle.kts
+│
+├── producer-service
+│   ├── src
+│   │   ├── main
+│   │   │   ├── java
+│   │   │   │   └── com.prosoft
+│   │   │   │       └── config
+│   │   │   │           ├── KafkaConfig
+│   │   │   │           ├── KafkaProducer01App
+│   │   │   │           ├── KafkaProducer02App
+│   │   │   │           └── KafkaProducer03App
+│   │   │   ├── resources
+│   │   │   │   └── logback.xml
+│   │   ├── test
+│   │       └── build.gradle.kts
+│
+├── actions.md
+├── docker-compose.yaml
+└── README.md
 ```

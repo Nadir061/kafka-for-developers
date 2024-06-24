@@ -1,10 +1,14 @@
 # webinar-02 Kafka Producer API
-### Kafka cluster
+[![Java](https://img.shields.io/badge/Java-E43222??style=for-the-badge&logo=openjdk&logoColor=FFFFFF)](https://www.java.com/)
+[![Kafka](https://img.shields.io/badge/Kafka-000000??style=for-the-badge&logo=apachekafka)](https://kafka.apache.org/)
+[![Docker](https://img.shields.io/badge/Docker-0E2B62??style=for-the-badge&logo=Docker&logoColor=FFFFFF)](https://www.docker.com/)
+
+## Kafka cluster
 ```txt
 Кластер Kafka с тремя брокерами (репликацией) для повышения отказоустойчивости и масштабируемости системы
 ---------------------------------------------------------------------------------------------------------
 ```
-### ProducerConfig
+## ProducerConfig
 При использовании Kafka с несколькими брокерами, в конфигурации продюсера (ProducerConfig) нужно указать список всех 
 брокеров, к которым продюсер может подключиться. Это делается для повышения отказоустойчивости: если один из брокеров 
 недоступен, продюсер может отправить сообщения другому брокеру:  
@@ -14,7 +18,7 @@
     // ...
 ```
 
-### Features list
+## Features list
 ```txt
 1) Настройка репликации Kafka, Zookeeper, Kafdrop 
 
@@ -62,7 +66,8 @@
             - .close();
             - .close(Duration.ofSeconds(60)).
 ```
-### Demo's description
+
+## Demo's description
 Приложение KafkaProducerApp формирует 10 объектов класса Person, сериализует и отправляет в заданный топик Kafka.
 Обработка результата отправки - в методе onCompletion интерфейса Callback проверяется наличие исключений и логируется 
 отправка.

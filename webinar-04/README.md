@@ -1,15 +1,14 @@
 # webinar-04 Admin API
-### Kafka cluster
+[![Java](https://img.shields.io/badge/Java-E43222??style=for-the-badge&logo=openjdk&logoColor=FFFFFF)](https://www.java.com/)
+[![Kafka](https://img.shields.io/badge/Kafka-000000??style=for-the-badge&logo=apachekafka)](https://kafka.apache.org/)
+[![Docker](https://img.shields.io/badge/Docker-0E2B62??style=for-the-badge&logo=Docker&logoColor=FFFFFF)](https://www.docker.com/)
+
+## Kafka cluster
 ```txt
 Kafka с тремя брокерами (репликацией) для повышения отказоустойчивости и масштабируемости системы
 ```
-### ConsumerConfig
 
-```java
-
-```
-
-### Features list
+## Features list
 ```txt
 
 1) Устройство Admin API
@@ -94,7 +93,31 @@ Kafka с тремя брокерами (репликацией) для повы�
       - Класс DescribeClusterResult
       - Класс DescribeClusterResult
       - (to-do добавить демо)
-         
+```
+
+## Demo's description
+```txt
+webinar-04
+├── admin-service
+│   ├── src
+│   │   ├── main
+│   │   │   ├── java
+│   │   │   │   └── com.prosoft
+│   │   │   │       └── config
+│   │   │   │           ├── KafkaConfig
+│   │   │   │           ├── CreateTopics
+│   │   │   │           └── KafkaAdminApp
+│   │   │   ├── resources
+│   │   │   │   └── logback.xml
+│   ├── test
+│   │   └── build.gradle.kts
+│
+├── actions.md
+├── build.gradle.kts
+├── docker-compose.yaml
+└── README.md
+```
+
 ### TO-DO list
 ```
   1) пример Перемещания партиций: AlterPartitionReassignmentsResult, NewPartitionReassignment, ListPartitionReassignmentsResult, PartitionReassignment;
@@ -115,14 +138,4 @@ Kafka с тремя брокерами (репликацией) для повы�
 
   9) пример Описание кластера: DescribeClusterResult, DescribeClusterResult.
 
-```
-      
-      
-      
-         
-         
-      
-   
-   
-          
 ```
