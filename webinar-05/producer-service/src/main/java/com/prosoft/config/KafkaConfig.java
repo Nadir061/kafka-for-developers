@@ -23,12 +23,15 @@ public class KafkaConfig {
         /** Подключения к Kafka-брокеру BOOTSTRAP_SERVERS */
         properties.put(ProducerConfig.BOOTSTRAP_SERVERS_CONFIG, BOOTSTRAP_SERVERS);
 
+        /** Включение идемпотентности для продюсера */
+        properties.put(ProducerConfig.ENABLE_IDEMPOTENCE_CONFIG, "true");
+
         /** Сколько узлов должны подтвердить получение записи, прежде чем считать ее успешно записанной:
          *  - acks=0: продюсер не будет ждать подтверждений от брокера
          *  - acks=1: продюсер будет ждать подтверждения от лидера партиции, но не от всех реплик
          *  - acks=all продюсер будет ждать подтверждений от всех реплик (самая надежная настройка)
          */
-        properties.put(ProducerConfig.ACKS_CONFIG, "all");
+        properties.put(ProducerConfig.ACKS_CONFIG, "0");
 
         /** Использование StringSerializer для сериализации ключей и значений сообщений.
          *  StringSerializer.class в контексте Apache Kafka представляет собой реализацию интерфейса Serializer
