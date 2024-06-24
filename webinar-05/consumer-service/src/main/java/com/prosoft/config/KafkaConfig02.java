@@ -6,22 +6,29 @@ import org.apache.kafka.common.serialization.StringDeserializer;
 import java.util.Properties;
 
 /**
- * Webinar-05: KafkaConfig содержит конфигурацию для кансамера в виде метода getConsumerConfig.
+ * Webinar-05: KafkaConfig содержит конфигурацию для транзакционного кансамера в виде метода getConsumerConfig.
  * Конфигурации включают настройки для серверов Kafka, десериализации и групп потребителей.
  */
-public class KafkaConfig {
+public class KafkaConfig02 {
 
     public static final String TOPIC = "topic1";
 
     private static final String BOOTSTRAP_SERVERS = "localhost:9093";
     private static final String GROUP_ID = "my-consumer-group";
 
-    private KafkaConfig() { }
+    private KafkaConfig02() {
+    }
 
     public static Properties getConsumerConfig() {
         Properties properties = new Properties();
         /** Подключения к Kafka-брокеру BOOTSTRAP_SERVERS */
         properties.put(ConsumerConfig.BOOTSTRAP_SERVERS_CONFIG, BOOTSTRAP_SERVERS);
+
+        /** Устанавливает уровень изоляции для потребителя и определяет, какие сообщения потребитель может видеть в теме:
+         * - read_uncommitted - потребитель видит все доступные сообщения в теме, включая незафиксированные сообщения;
+         * - read_committed - потребитель видит только те сообщения, которые были успешно зафиксированы в теме.
+         */
+        properties.put(ConsumerConfig.ISOLATION_LEVEL_CONFIG, "read_committed");
 
         /** Идентификатор группы потребителей (consumer group ID) */
         properties.put(ConsumerConfig.GROUP_ID_CONFIG, GROUP_ID);

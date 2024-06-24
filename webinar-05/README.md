@@ -23,12 +23,17 @@ Kafka с одним брокером и двумя портами:
   - режим enable.idempotence=true
   
 3) Exactly Once
-  - параметр TRANSACTIONAL_ID_CONFIG
-  - .initTransactions()
-  - .beginTransaction()
-  - .commitTransaction()
-  - .abortTransaction()
-  - служебный топик __transaction_state
+  - Транзакции
+    - параметр TRANSACTIONAL_ID_CONFIG
+    - .initTransactions()
+    - .beginTransaction()
+    - .commitTransaction()
+    - .abortTransaction()
+    - служебный топик __transaction_state
+    - .sendOffsetsToTransaction()
+  - isolation.level
+    - 
+
 
 
 ```

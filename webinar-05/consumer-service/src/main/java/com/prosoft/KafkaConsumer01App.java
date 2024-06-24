@@ -1,6 +1,6 @@
 package com.prosoft;
 
-import com.prosoft.config.KafkaConfig;
+import com.prosoft.config.KafkaConfig01;
 import org.apache.kafka.clients.consumer.ConsumerRecord;
 import org.apache.kafka.clients.consumer.ConsumerRecords;
 import org.apache.kafka.clients.consumer.KafkaConsumer;
@@ -14,15 +14,15 @@ import java.util.Collections;
  * Webinar-05 Kafka: consumer-service
  * Использования метода consumer.poll().
  */
-public class KafkaConsumerApp {
+public class KafkaConsumer01App {
 
-    private static final Logger logger = LoggerFactory.getLogger(KafkaConsumerApp.class);
+    private static final Logger logger = LoggerFactory.getLogger(KafkaConsumer01App.class);
     private static final Duration TEN_MILLISECONDS_INTERVAL = Duration.ofMillis(10);
 
     public static void main(String[] args) {
-        KafkaConsumer<String, String> consumer = new KafkaConsumer<>(KafkaConfig.getConsumerConfig());
+        KafkaConsumer<String, String> consumer = new KafkaConsumer<>(KafkaConfig01.getConsumerConfig());
         try (consumer) {
-            consumer.subscribe(Collections.singletonList(KafkaConfig.TOPIC));
+            consumer.subscribe(Collections.singletonList(KafkaConfig01.TOPIC));
             while (true) {
                 ConsumerRecords<String, String> consumerRecords = consumer.poll(TEN_MILLISECONDS_INTERVAL);
                 for (ConsumerRecord<String, String> cr : consumerRecords) {
