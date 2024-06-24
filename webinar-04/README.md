@@ -95,8 +95,27 @@ Kafka с тремя брокерами (репликацией) для повы�
       - Класс DescribeClusterResult
       - (to-do добавить демо)
          
-   
-   
+### TO-DO list
+```
+  1) пример Перемещания партиций: AlterPartitionReassignmentsResult, NewPartitionReassignment, ListPartitionReassignmentsResult, PartitionReassignment;
+
+  2) пример Хранение в файловой системе: DescribeLogDirsResult, LogDirDescription, DescribeReplicaLogDirsResult, ReplicaLogDirInfo, AlterReplicaLogDirsResult;
+
+  3) пример Управление транзакциями: DescribeTransactionsResult, AbortTransactionResult, ListTransactionsResult;
+
+  4) пример Удаление записей: DeleteRecordsResult, RecordsToDelete;
+
+  5) пример Consumer group: ListConsumerGroupsResult, DescribeConsumerGroupsResult, DeleteConsumerGroupsResult, ListConsumerGroupOffsetsResult, ListConsumerGroupOffsetsSpec, DeleteConsumerGroupOffsetsResult, AlterConsumerGroupOffsetsResult;
+
+  6) пример Управление ACL: CreateAclsResult, AclBinding, ResourcePattern, AccessControlEntry, DeleteAclsResult, DescribeAclsResult, AclBindingFilter, ResourcePatternFilter, AccessControlEntryFilter;
+
+  7) пример Управление квотами: AlterClientQuotasResult, ClientQuotaAlteration, ClientQuotaEntity, Op, DescribeClientQuotasResult, ClientQuotaFilter, ClientQuotaFilterComponent;
+
+  8) пример Настройка топиков и брокеров: AlterConfigsResult, ConfigResource, ConfigEntry, DescribeConfigsResult;
+
+  9) пример Описание кластера: DescribeClusterResult, DescribeClusterResult.
+
+```
       
       
       
