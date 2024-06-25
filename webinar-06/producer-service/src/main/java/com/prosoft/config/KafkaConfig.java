@@ -7,13 +7,12 @@ import java.util.Properties;
 
 /**
  * Webinar-06: KafkaConfig содержит конфигурацию для продюсера в виде метода getProducerConfig.
- * Конфигурации включают настройки для серверов Kafka, сериализации и групп отправителей.
  */
 public class KafkaConfig {
 
-    public static final String TOPIC = "topic1";
+    public static final String TOPIC = "w06-topic1-in";
 
-    private static final String BOOTSTRAP_SERVERS = "localhost:9093";
+    private static final String BOOTSTRAP_SERVERS = "localhost:9094";
 
     private KafkaConfig() { }
 
@@ -29,6 +28,9 @@ public class KafkaConfig {
          *  - acks=all продюсер будет ждать подтверждений от всех реплик (самая надежная настройка)
          */
         properties.put(ProducerConfig.ACKS_CONFIG, "all");
+
+        /** Установка размера пакета в ноль, чтобы отправка была сразу, без буферизации */
+        properties.put(ProducerConfig.BATCH_SIZE_CONFIG, "0");
 
         /** Использование StringSerializer для сериализации ключей и значений сообщений.
          *  StringSerializer.class в контексте Apache Kafka представляет собой реализацию интерфейса Serializer
