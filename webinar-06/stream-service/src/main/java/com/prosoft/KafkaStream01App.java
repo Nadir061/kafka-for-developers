@@ -42,19 +42,20 @@ public class KafkaStream01App {
         /** Вывод на печать */
         outputStream.print(Printed.<String, String>toSysOut().withLabel(String.format("Отправлено в %s", KafkaConfig01.OUTPUT_TOPIC)));
 
-        /** Используем try-with-resources для автоматического закрытия KafkaStreams */
+        /** Использование try-with-resources для автоматического закрытия KafkaStreams */
         try (KafkaStreams streams = new KafkaStreams(builder.build(), config)) {
 
-            /** Запускаем приложение Kafka Streams */
+            /** Запуск приложения Kafka Streams */
             streams.start();
 
-            /** Добавляем Shutdown hook для корректного завершения приложения */
+            /** Добавить Shutdown hook для корректного завершения приложения */
             Runtime.getRuntime().addShutdownHook(new Thread(streams::close));
 
-            /** Блокируем главный поток, чтобы приложение оставалось активным после запуска KafkaStreams */
+            /** Блокировка главного потока, для того чтобы приложение оставалось активным после запуска KafkaStreams */
             Thread.sleep(Long.MAX_VALUE);
 
         } catch (Exception e) {
+            logger.error("Произошла ошибка при работе Kafka Streams", e);
             Thread.currentThread().interrupt();
         }
     }
