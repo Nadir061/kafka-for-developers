@@ -5,12 +5,35 @@
 
 ## Kafka cluster
 ```txt
-KAFKA_LISTENER_SECURITY_PROTOCOL_MAP: PLAINTEXT:PLAINTEXT,PLAINTEXT_HOST:PLAINTEXT,PLAINTEXT_HOST2:PLAINTEXT
-KAFKA_ADVERTISED_LISTENERS: PLAINTEXT://kafka:9092,PLAINTEXT_HOST://localhost:9093,PLAINTEXT_HOST2://localhost:9094
-
-Kafka с одним брокером и двумя портами: 
+Возможны две конфигурации: (см. прим.)
+1) Конфигурация: Kafka с одним брокером и двумя портами: 
+--------------------------------------------------------
   - порт для приема сообщений:   PLAINTEXT_HOST://localhost:9093
   - порт для отправки сообщений: PLAINTEXT_HOST2://localhost:9094  
+
+docker-compose.yaml
+    environment:
+      KAFKA_LISTENER_SECURITY_PROTOCOL_MAP: PLAINTEXT:PLAINTEXT,PLAINTEXT_HOST:PLAINTEXT,PLAINTEXT_HOST2:PLAINTEXT
+      KAFKA_ADVERTISED_LISTENERS: PLAINTEXT://kafka:9092,PLAINTEXT_HOST://localhost:9093,PLAINTEXT_HOST2://localhost:9094
+    ports:
+      - "9092:9092"
+      - "9093:9093"
+      - "9094:9094"  
+
+2) Конфигурация: Kafka с одним брокером и одним портом: 
+-------------------------------------------------------
+  - порт для приема и отправки сообщений: PLAINTEXT_HOST://localhost:9093
+
+docker-compose.yaml
+    environment:
+      KAFKA_ADVERTISED_LISTENERS: PLAINTEXT://kafka:9092,PLAINTEXT_HOST://localhost:9093
+      KAFKA_LISTENER_SECURITY_PROTOCOL_MAP: PLAINTEXT:PLAINTEXT,PLAINTEXT_HOST:PLAINTEXT
+    ports:
+      - "9092:9092"
+      - "9093:9093"
+    
+ПРИМЕЧАНИЕ: использование схемы 1) вызыввет задержку (ребалансировка) до 1 минуты при вервом получении сообщений Кансамером. 
+            При последующих получениях - задержки не происходит.
 ```
 
 ## Features list
