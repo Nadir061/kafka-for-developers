@@ -28,6 +28,8 @@ public class KafkaStream01App {
         /** Создаем StreamsBuilder */
         StreamsBuilder builder = new StreamsBuilder();
 
+        /** Вариант записи #1: */
+
         /** Читаем данные из входного топика */
         KStream<String, String> inputStream = builder.stream(KafkaConfig01.INPUT_TOPIC);
 
@@ -42,6 +44,14 @@ public class KafkaStream01App {
 
         /** Вывод данных, которые проходят через поток outputStream, в стандартный вывод (консоль)  */
         outputStream.print(Printed.<String, String>toSysOut().withLabel(String.format("Отправлено в %s", KafkaConfig01.OUTPUT_TOPIC)));
+
+        /** Вариант записи #2:
+         * var outputStream = builder
+         *       .stream(KafkaConfig01.INPUT_TOPIC, Consumed.with(Serdes.String(), Serdes.String()))
+         *       .mapValues(it -> it.toUpperCase());
+         * outputStream.to(KafkaConfig01.OUTPUT_TOPIC, Produced.with(Serdes.String(), Serdes.String()));
+         * outputStream.print(Printed.<String, String>toSysOut().withLabel(String.format("Отправлено в %s", KafkaConfig01.OUTPUT_TOPIC)));
+         */
 
         /** Получаем топологию */
         Topology topology = builder.build();
