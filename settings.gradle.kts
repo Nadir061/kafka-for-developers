@@ -22,3 +22,4 @@ include("webinar-05:producer-service")
 findProject(":webinar-05:producer-service")?.name = "producer-service"
 include("webinar-05:consumer-service")
 findProject(":webinar-05:consumer-service")?.name = "consumer-service"
+include("webinar-06")

@@ -23,6 +23,7 @@ kafka-for-developers
 ├── webinar-03
 ├── webinar-04
 ├── webinar-05
+├── webinar-06
 ├── .gitignore
 ├── build.gradle.kts
 ├── gradlew
