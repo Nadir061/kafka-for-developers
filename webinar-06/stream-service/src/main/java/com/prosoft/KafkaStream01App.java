@@ -4,6 +4,7 @@ import com.prosoft.config.KafkaConfig01;
 import org.apache.kafka.common.serialization.Serdes;
 import org.apache.kafka.streams.KafkaStreams;
 import org.apache.kafka.streams.StreamsBuilder;
+import org.apache.kafka.streams.Topology;
 import org.apache.kafka.streams.kstream.KStream;
 import org.apache.kafka.streams.kstream.Printed;
 import org.apache.kafka.streams.kstream.Produced;
@@ -39,8 +40,12 @@ public class KafkaStream01App {
         /** Отправляем преобразованные данные в выходной Топик */
         outputStream.to(KafkaConfig01.OUTPUT_TOPIC, Produced.with(Serdes.String(), Serdes.String()));
 
-        /** Вывод на печать */
+        /** Вывод данных, которые проходят через поток outputStream, в стандартный вывод (консоль)  */
         outputStream.print(Printed.<String, String>toSysOut().withLabel(String.format("Отправлено в %s", KafkaConfig01.OUTPUT_TOPIC)));
+
+        /** Получаем топологию */
+        Topology topology = builder.build();
+        logger.info("Топология:\n{}", topology.describe());
 
         /** Использование try-with-resources для автоматического закрытия KafkaStreams */
         try (KafkaStreams streams = new KafkaStreams(builder.build(), config)) {
