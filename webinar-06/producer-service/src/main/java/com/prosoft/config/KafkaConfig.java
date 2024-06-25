@@ -12,7 +12,7 @@ public class KafkaConfig {
 
     public static final String TOPIC = "w06-topic1-in";
 
-    private static final String BOOTSTRAP_SERVERS = "localhost:9094";
+    private static final String BOOTSTRAP_SERVERS = "localhost:9093";
 
     private KafkaConfig() { }
 

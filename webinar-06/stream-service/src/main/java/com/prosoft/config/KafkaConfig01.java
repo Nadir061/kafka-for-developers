@@ -2,6 +2,7 @@ package com.prosoft.config;
 
 import org.apache.kafka.common.serialization.Serdes;
 import org.apache.kafka.streams.StreamsConfig;
+import org.apache.kafka.streams.Topology;
 
 import java.util.Properties;
 
@@ -27,6 +28,14 @@ public class KafkaConfig01 {
         properties.put(StreamsConfig.DEFAULT_VALUE_SERDE_CLASS_CONFIG, Serdes.String().getClass().getName());
 
         return properties;
+    }
+
+    public static Topology createTopology() {
+        Topology topology = new Topology();
+        topology.addSource("Source", "input-topic")
+                //.addProcessor("Process", () -> new StringProcessor(), "Source")
+                .addSink("Sink", "output-topic", "Process");
+        return topology;
     }
 
 }
