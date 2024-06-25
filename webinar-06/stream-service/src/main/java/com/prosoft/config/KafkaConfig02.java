@@ -7,14 +7,16 @@ import org.apache.kafka.streams.StreamsConfig;
 import java.util.Properties;
 
 /**
- * Webinar-06: KafkaConfig для KafkaStream01App содержит конфигурацию для kafka-streams в виде метода getStreamsConfig().
+ * Webinar-06: KafkaConfig для KafkaStream02App содержит конфигурацию для kafka-streams в виде метода getStreamsConfig().
  */
-public class KafkaConfig01 {
+public class KafkaConfig02 {
 
     public static final String INPUT_TOPIC = "w06-topic-in";
-    public static final String OUTPUT_TOPIC = "w06-topic-out";
 
-    private KafkaConfig01() {
+    public static final String OUTPUT_EVEN_AGE_TOPIC = "w06-topic-out-even-age";
+    public static final String OUTPUT_NOT_EVEN_AGE_TOPIC = "w06-topic-out-not-even-age";
+
+    private KafkaConfig02() {
     }
 
     public static Properties getStreamsConfig() {
