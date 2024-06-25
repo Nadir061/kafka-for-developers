@@ -5,12 +5,12 @@ import org.apache.kafka.common.serialization.Serdes;
 import org.apache.kafka.streams.KafkaStreams;
 import org.apache.kafka.streams.StreamsBuilder;
 import org.apache.kafka.streams.kstream.KStream;
+import org.apache.kafka.streams.kstream.Printed;
 import org.apache.kafka.streams.kstream.Produced;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import java.util.Properties;
-import java.util.concurrent.atomic.AtomicLong;
 
 /**
  * Webinar-06: Kafka stream-service (variant #1)
@@ -36,17 +36,11 @@ public class KafkaStream01App {
             return value.toUpperCase(); }
         );
 
-        /** Переменная для подсчета отправленных сообщений */
-        AtomicLong sentCount = new AtomicLong(0);
-
         /** Отправляем преобразованные данные в выходной Топик */
-        outputStream.to(KafkaConfig01.OUTPUT_TOPIC, Produced.with(Serdes.String(), Serdes.String())
-                .withStreamPartitioner((topic, key, value, numPartitions) -> {
-                    logger.info("Отправлено: {} в топик {}", value, topic);
-                    sentCount.incrementAndGet();
-                    /** Используем 0, чтобы отправить в партицию 0 */
-                    return 0;
-                }));
+        outputStream.to(KafkaConfig01.OUTPUT_TOPIC, Produced.with(Serdes.String(), Serdes.String()));
+
+        /** Вывод на печать */
+        outputStream.print(Printed.<String, String>toSysOut().withLabel(String.format("Отправлено в %s", KafkaConfig01.OUTPUT_TOPIC)));
 
         /** Используем try-with-resources для автоматического закрытия KafkaStreams */
         try (KafkaStreams streams = new KafkaStreams(builder.build(), config)) {
