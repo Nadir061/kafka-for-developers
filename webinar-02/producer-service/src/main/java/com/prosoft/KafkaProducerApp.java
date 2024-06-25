@@ -14,7 +14,7 @@ import java.time.format.DateTimeFormatter;
 
 /**
  * Webinar-02: Kafka producer-service (отправка объектов класса Person)
- * Использования метода producer.send(producerRecord) с обработой результата отправки через Callback.
+ * Использования метода producer.send(producerRecord) с обработкой результата отправки через Callback.
  */
 public class KafkaProducerApp {
 

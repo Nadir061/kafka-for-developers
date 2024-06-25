@@ -1,5 +1,6 @@
 package com.prosoft.config;
 
+import com.prosoft.serde.PersonSerde;
 import org.apache.kafka.common.serialization.Serdes;
 import org.apache.kafka.streams.StreamsConfig;
 
@@ -25,9 +26,11 @@ public class KafkaConfig01 {
         /** Адреса Kafka брокеров */
         properties.put(StreamsConfig.BOOTSTRAP_SERVERS_CONFIG, "localhost:9093");
 
-        /** Классы Сериализации/Десериализации (Serde) */
-        properties.put(StreamsConfig.DEFAULT_KEY_SERDE_CLASS_CONFIG, Serdes.String().getClass().getName());
-        properties.put(StreamsConfig.DEFAULT_VALUE_SERDE_CLASS_CONFIG, Serdes.String().getClass().getName());
+        /** Класс Сериализации/Десериализации (Serde) для ключей */
+        properties.put(StreamsConfig.DEFAULT_KEY_SERDE_CLASS_CONFIG, Serdes.Long().getClass().getName());
+
+        /** Класс Сериализации/Десериализации (Serde) для значений */
+        properties.put(StreamsConfig.DEFAULT_VALUE_SERDE_CLASS_CONFIG, PersonSerde.class.getName());
 
         return properties;
     }

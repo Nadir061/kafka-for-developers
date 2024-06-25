@@ -1,6 +1,8 @@
 package com.prosoft.config;
 
+import com.prosoft.serializer.PersonSerializer;
 import org.apache.kafka.clients.producer.ProducerConfig;
+import org.apache.kafka.common.serialization.LongSerializer;
 import org.apache.kafka.common.serialization.StringSerializer;
 
 import java.util.Properties;
@@ -32,12 +34,12 @@ public class KafkaConfig {
         /** Установка размера пакета в ноль, чтобы отправка была сразу, без буферизации */
         properties.put(ProducerConfig.BATCH_SIZE_CONFIG, "0");
 
-        /** Использование StringSerializer для сериализации ключей и значений сообщений.
-         *  StringSerializer.class в контексте Apache Kafka представляет собой реализацию интерфейса Serializer
-         *  из клиентской библиотеки Kafka, которая используется для сериализации объектов типа String в байтовый формат.
-         */
-        properties.put(ProducerConfig.KEY_SERIALIZER_CLASS_CONFIG, StringSerializer.class.getName());
-        properties.put(ProducerConfig.VALUE_SERIALIZER_CLASS_CONFIG, StringSerializer.class.getName());
+        /** Использование LongSerializer для сериализации ключа (Key) */
+        properties.put(ProducerConfig.KEY_SERIALIZER_CLASS_CONFIG, LongSerializer.class.getName());
+
+        /** Использование PersonSerializer для сериализации значения (Value) */
+        properties.put(ProducerConfig.VALUE_SERIALIZER_CLASS_CONFIG, PersonSerializer.class.getName());
+
         return properties;
     }
 

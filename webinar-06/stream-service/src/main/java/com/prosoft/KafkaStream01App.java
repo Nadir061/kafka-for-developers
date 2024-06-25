@@ -1,6 +1,8 @@
 package com.prosoft;
 
 import com.prosoft.config.KafkaConfig01;
+import com.prosoft.domain.Person;
+import com.prosoft.serde.PersonSerde;
 import org.apache.kafka.common.serialization.Serdes;
 import org.apache.kafka.streams.KafkaStreams;
 import org.apache.kafka.streams.StreamsBuilder;
@@ -31,27 +33,31 @@ public class KafkaStream01App {
         /** Вариант записи #1: */
 
         /** Читаем данные из входного топика */
-        KStream<String, String> inputStream = builder.stream(KafkaConfig01.INPUT_TOPIC);
+        KStream<Long, Person> inputStream = builder.stream(KafkaConfig01.INPUT_TOPIC);
 
         /** Преобразуем данные (переводим строки в верхний регистр) */
-        KStream<String, String> outputStream = inputStream.mapValues(value -> {
-            logger.info("Получено: {}", value);
-            return value.toUpperCase(); }
-        );
+        KStream<Long, Person> outputStream = inputStream.mapValues(person -> {
+                logger.info("Получено: {}", person);
+                person.setFirstName(person.getFirstName().toUpperCase());
+                return person;
+        });
 
-        /** Отправляем преобразованные данные в выходной Топик */
-        outputStream.to(KafkaConfig01.OUTPUT_TOPIC, Produced.with(Serdes.String(), Serdes.String()));
+        /** Отправляем преобразованные данные в KafkaConfig01.OUTPUT_TOPIC */
+        outputStream.to(KafkaConfig01.OUTPUT_TOPIC, Produced.with(Serdes.Long(), new PersonSerde()));
+
+        /** Вариант записи #2: более краткая гусеничная запись
+         * var outputStream = builder
+         *        .stream(KafkaConfig01.INPUT_TOPIC, Consumed.with(Serdes.Long(), new PersonSerde()))
+         *        .mapValues(person -> {
+         *            logger.info("Получено: {}", person);
+         *            person.setFirstName(person.getFirstName().toUpperCase());
+         *            return person;
+         *        });
+         * outputStream.to(KafkaConfig01.OUTPUT_TOPIC, Produced.with(Serdes.Long(), new PersonSerde()));
+         */
 
         /** Вывод данных, которые проходят через поток outputStream, в стандартный вывод (консоль)  */
-        outputStream.print(Printed.<String, String>toSysOut().withLabel(String.format("Отправлено в %s", KafkaConfig01.OUTPUT_TOPIC)));
-
-        /** Вариант записи #2:
-         * var outputStream = builder
-         *       .stream(KafkaConfig01.INPUT_TOPIC, Consumed.with(Serdes.String(), Serdes.String()))
-         *       .mapValues(it -> it.toUpperCase());
-         * outputStream.to(KafkaConfig01.OUTPUT_TOPIC, Produced.with(Serdes.String(), Serdes.String()));
-         * outputStream.print(Printed.<String, String>toSysOut().withLabel(String.format("Отправлено в %s", KafkaConfig01.OUTPUT_TOPIC)));
-         */
+        outputStream.print(Printed.<Long, Person>toSysOut().withLabel(String.format("Отправлено в %s", KafkaConfig01.OUTPUT_TOPIC)));
 
         /** Получаем топологию */
         Topology topology = builder.build();

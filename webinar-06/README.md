@@ -15,9 +15,11 @@ Kafka с одним брокером и одним портом 9093
    - DEFAULT_KEY_SERDE_CLASS_CONFIG, DEFAULT_VALUE_SERDE_CLASS_CONFIG - Классы Сериализации/Десериализации (Serde)
    - Класс Topology
    - Класс StreamsBuilder
-   - Класс KStream: методы .to(), .print()
+   - Класс KStream: методы .map(), .mapValues(), .filter(), .flatMap(), .flatMapValues(), .join(), .groupBy(), .aggregate(), .to(), .print();
    - Класс Printed: метод .withLabel
    - Класс KafkaStreams
+   
+   - 
 ```
 
 ## Demo's description
