@@ -10,8 +10,10 @@ Kafka с одним брокером и одним портом 9093
 
 ## Features list
 ```txt
-1) ____
-   - ______
+1) kafka-streams
+   - APPLICATION_ID_CONFIG - уникальный идентификатор для приложения
+   - DEFAULT_KEY_SERDE_CLASS_CONFIG, DEFAULT_VALUE_SERDE_CLASS_CONFIG - Классы Сериализации/Десериализации (Serde)
+   - Класс Topology
 ```
 
 ## Demo's description
