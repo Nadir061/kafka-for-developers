@@ -10,7 +10,7 @@ repositories {
 }
 
 dependencies {
-    implementation("org.apache.kafka:kafka-streams:3.0.0")
+    implementation ("org.apache.kafka:kafka-clients:3.4.0")
 
     implementation ("org.slf4j:slf4j-api:2.0.13")
     implementation ("ch.qos.logback:logback-classic:1.5.6")
