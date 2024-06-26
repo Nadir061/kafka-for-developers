@@ -13,8 +13,10 @@ public class KafkaConfig02 {
 
     public static final String INPUT_TOPIC = "w06-topic-in";
 
+    /** Топик для Person c четным возрастом */
     public static final String OUTPUT_EVEN_AGE_TOPIC = "w06-topic-out-even-age";
-    public static final String OUTPUT_NOT_EVEN_AGE_TOPIC = "w06-topic-out-not-even-age";
+    /** Топик для Person c нечетным возрастом */
+    public static final String OUTPUT_ODD_AGE_TOPIC = "w06-topic-out-odd-age";
 
     private KafkaConfig02() {
     }

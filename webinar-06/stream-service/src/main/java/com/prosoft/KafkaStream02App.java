@@ -18,7 +18,7 @@ import java.util.Properties;
 /**
  * Webinar-06: Kafka stream-service (variant #2) принимает сообщения из KafkaConfig02.INPUT_TOPIC с типом Person и сортирует
  * с четным возрастом сообщения пересылаются - в KafkaConfig02.OUTPUT_EVEN_AGE_TOPIC,
- * с нечетным возрастом в KafkaConfig02.OUTPUT_NOT_EVEN_AGE_TOPIC
+ * с нечетным возрастом в KafkaConfig02.OUTPUT_ODD_AGE_TOPIC
  */
 public class KafkaStream02App {
 
@@ -31,8 +31,6 @@ public class KafkaStream02App {
 
         /** Создаем StreamsBuilder */
         StreamsBuilder builder = new StreamsBuilder();
-
-        /** Вариант записи #1: */
 
         /** Читаем данные из входного топика */
         KStream<Long, Person> inputStream = builder.stream(KafkaConfig02.INPUT_TOPIC);
@@ -55,8 +53,8 @@ public class KafkaStream02App {
         branches[0].print(Printed.<Long, Person>toSysOut().withLabel(String.format("Отправлено в %s", KafkaConfig02.OUTPUT_EVEN_AGE_TOPIC)));
 
         /** Отправляем данные с нечетным возрастом в OUTPUT_TOPIC_2 */
-        branches[1].to(KafkaConfig02.OUTPUT_NOT_EVEN_AGE_TOPIC, Produced.with(Serdes.Long(), new PersonSerde()));
-        branches[1].print(Printed.<Long, Person>toSysOut().withLabel(String.format("Отправлено в %s", KafkaConfig02.OUTPUT_NOT_EVEN_AGE_TOPIC)));
+        branches[1].to(KafkaConfig02.OUTPUT_ODD_AGE_TOPIC, Produced.with(Serdes.Long(), new PersonSerde()));
+        branches[1].print(Printed.<Long, Person>toSysOut().withLabel(String.format("Отправлено в %s", KafkaConfig02.OUTPUT_ODD_AGE_TOPIC)));
 
 
         /** Получаем топологию */
