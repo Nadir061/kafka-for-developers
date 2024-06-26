@@ -42,7 +42,7 @@ public class KafkaStream02App {
                 return person;
         });
 
-        /** Фильтрация и отправка в разные топики в зависимости от четности возраста */
+        /** Фильтрация и отправка в разные топики в зависимости от четности возраста через разделение потока на две ветви по четности возраста */
         KStream<Long, Person>[] branches = outputStream.branch(
                 (key, person) -> person.getAge() % 2 == 0,
                 (key, person) -> true
@@ -57,7 +57,7 @@ public class KafkaStream02App {
         branches[1].print(Printed.<Long, Person>toSysOut().withLabel(String.format("Отправлено в %s", KafkaConfig02.OUTPUT_ODD_AGE_TOPIC)));
 
 
-        /** Получаем топологию */
+        /** Создание топологии из builder */
         Topology topology = builder.build();
         logger.info("Топология:\n{}", topology.describe());
 
@@ -67,7 +67,7 @@ public class KafkaStream02App {
             /** Запуск приложения Kafka Streams */
             streams.start();
 
-            /** Добавить Shutdown hook для корректного завершения приложения */
+            /** Добавление хука (Shutdown hook - выполнение кода при завершении работы Java Virtual Machine (JVM) */
             Runtime.getRuntime().addShutdownHook(new Thread(streams::close));
 
             /** Блокировка главного потока, для того чтобы приложение оставалось активным после запуска KafkaStreams */
