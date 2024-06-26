@@ -10,7 +10,7 @@ repositories {
 }
 
 dependencies {
-    implementation ("org.apache.kafka:kafka-clients:3.4.0")
+    implementation ("org.apache.kafka:kafka-clients:3.7.0")
     implementation("com.fasterxml.jackson.core:jackson-databind:2.13.0")
 
     implementation ("org.slf4j:slf4j-api:2.0.13")
