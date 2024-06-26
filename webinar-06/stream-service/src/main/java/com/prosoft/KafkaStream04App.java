@@ -20,6 +20,7 @@ import java.util.Properties;
  * Webinar-06: Kafka stream-service (variant #4)
  * Чтение данных из KafkaConfig04.OUTPUT_EVEN_AGE_TOPIC и KafkaConfig04.OUTPUT_ODD_AGE_TOPIC и объединение через .outerJoin
  * в KafkaConfig04.OUTPUT_EVEN_AND_ODD_AGE_TOPIC
+ * ПРИМЕЧАНИЕ: KafkaStream04App запускается после KafkaStream03App.
  */
 public class KafkaStream04App {
 

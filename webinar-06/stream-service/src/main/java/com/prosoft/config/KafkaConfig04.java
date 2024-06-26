@@ -7,7 +7,7 @@ import org.apache.kafka.streams.StreamsConfig;
 import java.util.Properties;
 
 /**
- * Webinar-06: KafkaConfig для KafkaStream02App содержит конфигурацию для kafka-streams в виде метода getStreamsConfig().
+ * Webinar-06: KafkaConfig для KafkaStream04App содержит конфигурацию для kafka-streams в виде метода getStreamsConfig().
  */
 public class KafkaConfig04 {
 
