@@ -35,7 +35,6 @@ import java.util.Properties;
  * 4) В методе process процессора обновляются значения в хранилище в зависимости от четности возраста человека.
  * 5) Добавлен вызов inputStream.process(() -> new AgeProcessor(), STORE_NAME) для применения процессора к входящему потоку.
  * 6) Логирование текущих значений счетчиков после каждой обработки.
- *
  */
 public class KafkaStream03App {
 
@@ -43,7 +42,7 @@ public class KafkaStream03App {
     private static final String STORE_NAME = "calculated-ages-store-name";
     private static final String KEY_STORE_EVEN_AGE = "even";
     private static final String KEY_STORE_ODD_AGE = "odd";
-    
+
     public static void main(String[] args) {
         Properties config = KafkaConfig03.getStreamsConfig();
         StreamsBuilder builder = new StreamsBuilder();
@@ -103,11 +102,15 @@ public class KafkaStream03App {
         }
     }
 
-    /** Процессор для подсчета четных и нечетных возрастов */
+    /**
+     * Процессор для подсчета четных и нечетных возрастов
+     */
     static class AgeProcessor implements Processor<Long, Person, Void, Void> {
         private KeyValueStore<String, Integer> kvStore;
 
-        /** Инициализация процессора */
+        /**
+         * Инициализация процессора
+         */
         @Override
         public void init(ProcessorContext<Void, Void> context) {
             /** Получение хранилища из контекста */
@@ -117,27 +120,29 @@ public class KafkaStream03App {
             kvStore.putIfAbsent(KEY_STORE_ODD_AGE, 0);
         }
 
-        /** Обработка каждой записи */
+        /**
+         * Обработка каждой записи
+         */
         @Override
         public void process(Record<Long, Person> personRecord) {
             Person person = personRecord.value();
             logger.info("AgeProcessor: person {}, age {}", person.getId(), person.getAge());
-            if (person != null) {
-                /** Увеличение соответствующего счетчика в зависимости от четности возраста */
-                if (person.getAge() % 2 == 0) {
-                    int evenCount = kvStore.get(KEY_STORE_EVEN_AGE);
-                    kvStore.put(KEY_STORE_EVEN_AGE, evenCount + 1);
-                } else {
-                    int oddCount = kvStore.get(KEY_STORE_ODD_AGE);
-                    kvStore.put(KEY_STORE_ODD_AGE, oddCount + 1);
-                }
+            /** Увеличение соответствующего счетчика в зависимости от четности возраста */
+            if (person.getAge() % 2 == 0) {
+                int evenCount = kvStore.get(KEY_STORE_EVEN_AGE);
+                kvStore.put(KEY_STORE_EVEN_AGE, evenCount + 1);
+            } else {
+                int oddCount = kvStore.get(KEY_STORE_ODD_AGE);
+                kvStore.put(KEY_STORE_ODD_AGE, oddCount + 1);
             }
             /** Логирование текущих значений счетчиков */
             logger.info("AgeProcessor: Четное значение: {}", kvStore.get(KEY_STORE_EVEN_AGE));
             logger.info("AgeProcessor: Нечетное значение: {}", kvStore.get(KEY_STORE_ODD_AGE));
         }
 
-        /** Метод закрытия процессора (в данном случае пустой) */
+        /**
+         * Метод закрытия процессора (в данном случае пустой)
+         */
         @Override
         public void close() {
             // Здесь можно добавить логику закрытия, если необходимо
