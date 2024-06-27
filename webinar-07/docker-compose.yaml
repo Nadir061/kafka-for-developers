@@ -40,6 +40,7 @@ services:
 
   schema-registry:
     image: confluentinc/cp-schema-registry:7.6.1
+    container_name: schema-registry
     hostname: schema-registry
     ports:
       - "8081:8081"
