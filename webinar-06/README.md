@@ -5,7 +5,8 @@
 
 ## Kafka cluster
 ```txt
-Один брокер. Порт 9093.
+Один брокер
+Порт PLAINTEXT_HOST://localhost:9093
 ```
 
 ## Features list

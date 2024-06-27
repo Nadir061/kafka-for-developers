@@ -3,6 +3,11 @@
 [![Kafka](https://img.shields.io/badge/Kafka-000000??style=for-the-badge&logo=apachekafka)](https://kafka.apache.org/)
 [![Docker](https://img.shields.io/badge/Docker-0E2B62??style=for-the-badge&logo=Docker&logoColor=FFFFFF)](https://www.docker.com/)
 
+## Kafka cluster
+```txt
+Кластер Kafka с одним брокером. Порт PLAINTEXT_HOST://localhost:9093
+```
+
 ## Apache Kafka Clients for Java
 https://mvnrepository.com/artifact/org.apache.kafka/kafka-clients
 

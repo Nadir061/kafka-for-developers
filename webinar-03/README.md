@@ -6,6 +6,9 @@
 ## Kafka cluster
 ```txt
 Kafka с тремя брокерами (репликацией) для повышения отказоустойчивости и масштабируемости системы
+Порты PLAINTEXT_HOST://localhost:9091
+      PLAINTEXT_HOST://localhost:9092
+      PLAINTEXT_HOST://localhost:9093
 ```
 
 Создание топика topic3 с тремя партициями (см. [actions.md](actions.md))
