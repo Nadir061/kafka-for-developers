@@ -30,19 +30,19 @@ public class KafkaStream07App {
 
         StreamsBuilder builder = new StreamsBuilder();
 
-        // Создаем GlobalKTable из топика с четным возрастом
+        /** Создаем GlobalKTable из топика с четным возрастом */
         GlobalKTable<Long, Person> evenAgePersons = builder.globalTable(
                 KafkaConfig07.INPUT_EVEN_AGE_TOPIC,
                 Consumed.with(Serdes.Long(), new PersonSerde())
         );
 
-        // Создаем KStream из топика с нечетным возрастом
+        /** Создаем KStream из топика с нечетным возрастом */
         KStream<Long, Person> oddAgePersons = builder.stream(
                 KafkaConfig07.INPUT_ODD_AGE_TOPIC,
                 Consumed.with(Serdes.Long(), new PersonSerde())
         );
 
-        // Объединяем данные из KStream и GlobalKTable
+        /** Объединяем данные из KStream и GlobalKTable */
         oddAgePersons.leftJoin(evenAgePersons,
                 (personId, oddAgePerson) -> personId,  // Функция извлечения ключа для соединения
                 (oddAgePerson, evenAgePerson) -> {
@@ -58,12 +58,12 @@ public class KafkaStream07App {
 
         KafkaStreams streams = new KafkaStreams(builder.build(), config);
 
-        // Выводим топологию
+        /** Выводим топологию */
         logger.info("Topology: \n" + streams.toString());
 
         streams.start();
 
-        // Добавляем хук завершения
+        /** Добавляем хук завершения */
         Runtime.getRuntime().addShutdownHook(new Thread(streams::close));
     }
 
