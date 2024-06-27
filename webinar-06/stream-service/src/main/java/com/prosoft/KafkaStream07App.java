@@ -42,24 +42,22 @@ public class KafkaStream07App {
                 Consumed.with(Serdes.Long(), new PersonSerde())
         );
 
-        /** Объединяем данные из KStream и GlobalKTable */
-        oddAgePersons.leftJoin(evenAgePersons,
-                (personId, oddAgePerson) -> personId,  // Функция извлечения ключа для соединения
-                (oddAgePerson, evenAgePerson) -> {
-                    String result = "Odd age person: " + personToString(oddAgePerson);
-                    if (evenAgePerson != null) {
-                        result += ", Matched even age person: " + personToString(evenAgePerson);
-                    } else {
-                        result += ", No matching even age person";
-                    }
-                    return result;
-                }
-        ).to(KafkaConfig07.OUTPUT_TOPIC, Produced.with(Serdes.Long(), Serdes.String()));
+        /** Объединяем данные из KStream (нечетный возраст) и GlobalKTable (четный возраст) */
+        KStream<Long, Person> mergedStream = oddAgePersons.merge(
+                oddAgePersons.leftJoin(evenAgePersons,
+                                (personId, oddAgePerson) -> personId,
+                                (oddAgePerson, evenAgePerson) -> evenAgePerson)
+                        .filter((key, value) -> value != null)
+        );
 
+        /**  Отправляем все сообщения в выходной топик */
+        mergedStream.to(KafkaConfig07.OUTPUT_TOPIC, Produced.with(Serdes.Long(), new PersonSerde()));
+
+        /** Создаем объект KafkaStreams, передавая ему построенную топологию и конфигурацию */
         KafkaStreams streams = new KafkaStreams(builder.build(), config);
 
         /** Выводим топологию */
-        logger.info("Topology: \n" + streams.toString());
+        logger.info("Topology: \n {}", streams);
 
         streams.start();
 
@@ -67,11 +65,4 @@ public class KafkaStream07App {
         Runtime.getRuntime().addShutdownHook(new Thread(streams::close));
     }
 
-    private static String personToString(Person person) {
-        if (person == null) {
-            return "null";
-        }
-        return String.format("Person(id=%d, firstName='%s', lastName='%s', age=%d)",
-                person.getId(), person.getFirstName(), person.getLastName(), person.getAge());
-    }
 }
