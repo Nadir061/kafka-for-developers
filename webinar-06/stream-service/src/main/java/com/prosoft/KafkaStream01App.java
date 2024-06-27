@@ -17,6 +17,7 @@ import java.util.Properties;
 
 /**
  * Webinar-06: Kafka stream-service (variant #1)
+ * ПРИМЕЧАНИЕ: KafkaStream01App запускается сразу после работы Продюсера (Webinar-06: Kafka producer-service)
  */
 public class KafkaStream01App {
 

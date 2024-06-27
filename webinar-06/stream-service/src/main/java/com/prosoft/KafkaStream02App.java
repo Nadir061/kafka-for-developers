@@ -19,6 +19,7 @@ import java.util.Properties;
  * Webinar-06: Kafka stream-service (variant #2) принимает сообщения из KafkaConfig02.INPUT_TOPIC с типом Person и сортирует
  * с четным возрастом сообщения пересылаются - в KafkaConfig02.OUTPUT_EVEN_AGE_TOPIC,
  * с нечетным возрастом в KafkaConfig02.OUTPUT_ODD_AGE_TOPIC
+ * ПРИМЕЧАНИЕ: KafkaStream02App запускается сразу после работы Продюсера (Webinar-06: Kafka producer-service)
  */
 public class KafkaStream02App {
 

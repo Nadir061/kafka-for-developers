@@ -35,6 +35,7 @@ import java.util.Properties;
  * 4) В методе process процессора обновляются значения в хранилище в зависимости от четности возраста человека.
  * 5) Добавлен вызов inputStream.process(() -> new AgeProcessor(), STORE_NAME) для применения процессора к входящему потоку.
  * 6) Логирование текущих значений счетчиков после каждой обработки.
+ * ПРИМЕЧАНИЕ: KafkaStream03App запускается сразу после работы Продюсера (Webinar-06: Kafka producer-service)
  */
 public class KafkaStream03App {
 
