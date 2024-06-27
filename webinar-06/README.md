@@ -5,7 +5,7 @@
 
 ## Kafka cluster
 ```txt
-Kafka с одним брокером. Порт 9093.
+Один брокер. Порт 9093.
 ```
 
 ## Features list
