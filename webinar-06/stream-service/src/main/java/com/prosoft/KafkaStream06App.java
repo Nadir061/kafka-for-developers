@@ -3,22 +3,20 @@ package com.prosoft;
 import com.prosoft.config.KafkaConfig06;
 import com.prosoft.domain.Person;
 import com.prosoft.serde.PersonSerde;
-import org.apache.kafka.clients.consumer.ConsumerRecord;
 import org.apache.kafka.common.serialization.Serdes;
 import org.apache.kafka.streams.KafkaStreams;
 import org.apache.kafka.streams.StreamsBuilder;
 import org.apache.kafka.streams.Topology;
-import org.apache.kafka.streams.kstream.*;
-import org.apache.kafka.streams.processor.TimestampExtractor;
+import org.apache.kafka.streams.kstream.Consumed;
+import org.apache.kafka.streams.kstream.KTable;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import java.time.Duration;
 import java.util.Properties;
 
 /**
  * Webinar-06: Kafka stream-service (variant #6)
- * ПРИМЕЧАНИЕ: KafkaStream01App запускается сразу после работы Продюсера (Webinar-06: Kafka producer-service)
+ * ПРИМЕЧАНИЕ: KafkaStream06App запускается сразу после работы Продюсера (Webinar-06: Kafka producer-service)
  */
 public class KafkaStream06App {
 
