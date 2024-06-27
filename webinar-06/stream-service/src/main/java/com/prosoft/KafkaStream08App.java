@@ -1,6 +1,6 @@
 package com.prosoft;
 
-import com.prosoft.config.KafkaConfig01;
+import com.prosoft.config.KafkaConfig08;
 import com.prosoft.domain.Person;
 import com.prosoft.serde.PersonSerde;
 import org.apache.kafka.common.serialization.Serdes;
@@ -24,13 +24,13 @@ public class KafkaStream08App {
     public static void main(String[] args) {
 
         /** Получаем конфигурацию Kafka Streams */
-        Properties config = KafkaConfig01.getStreamsConfig();
+        Properties config = KafkaConfig08.getStreamsConfig();
 
         /** Создаем топологию */
         Topology topology = new Topology();
 
         /** Определяем источник (source) */
-        topology.addSource("Source", Serdes.Long().deserializer(), new PersonSerde().deserializer(), KafkaConfig01.INPUT_TOPIC);
+        topology.addSource("Source", Serdes.Long().deserializer(), new PersonSerde().deserializer(), KafkaConfig08.INPUT_TOPIC);
 
         /** Определяем процессор (processor) для обработки данных */
         topology.addProcessor("Processor", new ProcessorSupplier<Long, Person>() {
@@ -51,7 +51,7 @@ public class KafkaStream08App {
         }, "Source");
 
         /** Определяем вывод (sink) для отправки обработанных данных в выходной топик */
-        topology.addSink("Sink", KafkaConfig01.OUTPUT_TOPIC, Serdes.Long().serializer(), new PersonSerde().serializer(), "Processor");
+        topology.addSink("Sink", KafkaConfig08.OUTPUT_TOPIC, Serdes.Long().serializer(), new PersonSerde().serializer(), "Processor");
 
         /** Выводим топологию */
         logger.info("Топология:\n{}", topology.describe());
