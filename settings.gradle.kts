@@ -35,3 +35,7 @@ findProject(":webinar-06:producer-service")?.name = "producer-service"
 findProject(":webinar-06:stream-service")?.name = "stream-service"
 
 include("webinar-07")
+include("webinar-07:producer-service")
+include("webinar-07:consumer-service")
+findProject(":webinar-07:producer-service")?.name = "producer-service"
+findProject(":webinar-07:consumer-service")?.name = "consumer-service"
