@@ -1,0 +1,14 @@
+### Регистрация схемы для топика "w7-topic" для значений
+POST http://localhost:8081/subjects/w7topic-value/versions
+Content-Type: application/json
+
+{
+  "schema": "{ \"type\": \"record\", \"name\": \"Person\", \"namespace\": \"com.prosoft.domain\", \"fields\": [ { \"name\": \"id\", \"type\": \"long\" }, { \"name\": \"firstName\", \"type\": \"string\" }, { \"name\": \"lastName\", \"type\": \"string\" }, { \"name\": \"age\", \"type\": \"int\" } ] }"
+}
+
+### Получить информацию о версии схемы #1 топика "w7-topic"
+GET http://localhost:8081/subjects/w7-topic-value/versions/1
+Accept: application/json
+
+
+
