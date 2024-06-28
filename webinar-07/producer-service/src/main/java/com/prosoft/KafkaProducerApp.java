@@ -10,6 +10,8 @@ import java.nio.file.Paths;
 
 /**
  * Webinar-07: Kafka producer-service (отправка объектов класса Person)
+ * Примечание: для генерации классов с использованием плагина avro-maven-plugin (см pom.xml) необходимо открыть проект
+ * как: "producer-service/src/main/java/com/prosoft/KafkaProducerApp.java"
  */
 public class KafkaProducerApp {
 
