@@ -28,17 +28,18 @@ public class PersonBuilder {
 
     public static void main(String[] args) {
         getPersonFromGenericRecord(1L, "John", "Doe", 32);
-        doReflectDatum(1L, "John", "Doe", 32);
+        generateAvroFileFromClassByReflectDatum();
         doSpecificRecord(1L, "John", "Doe", 32);
     }
 
     /**
-     * GenericRecord позволяет работать с Avro без необходимости компилировать схему в Java классы.
+     * GenericRecord позволяет работать с Avro без необходимости компилировать схему в Java классы и создает объект
+     * в формате  Avro, который можно сериализировать и отправлять в Kafka.
      * @param id
      * @param firstName
      * @param lastName
      * @param age
-     * @return
+     * @return GenericRecord - это объект в формате Avro, который можно сериализировать и отправлять в Kafka
      */
     private static GenericRecord getPersonFromGenericRecord(long id, String firstName, String lastName, int age) {
 
@@ -61,17 +62,15 @@ public class PersonBuilder {
     }
 
     /***
-     * Метод doReflectDatum позволяет работать с Avro, используя классы POJO (Plain Old Java Object), при этом
-     * не требуется генерировать код из Avro схем.
-     * @param id
-     * @param firstName
-     * @param lastName
-     * @param age
+     * Метод generateAvroFileFromClassByReflectDatum позволяет работать с Avro, используя классы POJO (Plain Old Java Object),
+     * при этом не требуется генерировать код из Avro схем.
+     * Если есть в ручную написанный класс (доменная модель), создан экземпляр этого класса, то используя этот метод можно
+     * сгенерировать схему в формате Avro (без необходимости ее писать вручную, как в getPersonFromGenericRecord)
      */
-    public static void doReflectDatum(long id, String firstName, String lastName, int age) {
+    public static void generateAvroFileFromClassByReflectDatum() {
 
         /** Создание экземпляра класса Person */
-        Person person = new Person(id, firstName, lastName, age);
+        Person person = new Person();
 
         /** Получение схемы */
         Schema schema = ReflectData.get().getSchema(Person.class);
@@ -90,9 +89,17 @@ public class PersonBuilder {
 
     /**
      * Метод Specific (самый распространенный) использует автоматически сгенерированные классы из схемы Person.avsc
-     * Класс генерируется с помощью команды mvn avro:schema или mvn package. Результат находится в папке target
-     * и доступен в classpath.
-     * @return
+     * Использует файл PERSON_AVCS.
+     * Класс генерируется:
+     * 1) Меню "Maven" - "producer-service" - "Plugins" - "avro" - "avro:schema"
+     * 2) с помощью команды mvn avro:schema
+     * 3) mvn package
+     *
+     * Результат находится в папке target/generated-sources/avro/com/prosoft/domain/Person.java и доступен в classpath
+     * и его можно использовать в import com.prosoft.domain.Person.
+     * Этот созданный класс Person адаптирован под использование с Avro, и его далее можно использовать в коде, записывать
+     * значения и сериализовывать перед отправкой в Kafka.
+     * @return Person
      */
     public static Person doSpecificRecord(long id, String firstName, String lastName, int age) {
         /** Создание объекта Person (impl. SpecificRecord) */
