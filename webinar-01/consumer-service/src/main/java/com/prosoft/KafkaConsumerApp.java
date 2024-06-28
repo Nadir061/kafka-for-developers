@@ -11,7 +11,7 @@ import java.time.Duration;
 import java.util.Collections;
 
 /**
- * Webinar-01 Kafka: consumer-service
+ * Webinar-01: Kafka consumer-service
  * Использования метода consumer.poll().
  */
 public class KafkaConsumerApp {

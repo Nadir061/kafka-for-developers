@@ -11,7 +11,7 @@ import java.time.Duration;
 import java.util.Collections;
 
 /**
- * Webinar-05 Kafka: Транзакционный consumer-service
+ * Webinar-05: Kafka Транзакционный consumer-service
  * Использования метода consumer.poll().
  */
 public class KafkaConsumer02App {
