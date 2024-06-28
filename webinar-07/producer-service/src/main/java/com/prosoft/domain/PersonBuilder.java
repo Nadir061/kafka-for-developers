@@ -16,6 +16,12 @@ import java.nio.file.Paths;
 
 /**
  * Служебный класс для создания записей Avro, представляющих объект Person.
+ * 1) Метод Generic (getPersonFromGenericRecord) - мы вручную пишем схему в формате JSON: описываем поля и далее при помощи
+ * библиотеки Avro создаем сообщения.
+ * 2) Метод Reflection (generateAvroFileFromClassByReflectDatum) - на основе класса Java, который есть в проекте можно
+ * сгенерировать схему в JSON.
+ * 3) Метод Specific (doSpecificRecord) - (самый распространенный) когда у нас есть схема JSON и используя плагин Avro
+ * можно генерировать классы.
  */
 public class PersonBuilder {
 
