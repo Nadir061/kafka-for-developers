@@ -35,3 +35,6 @@ build/
 # Ignore build artifacts in all modules
 **/build/
 **/target/
+
+# Ignore avro
+*.avro
