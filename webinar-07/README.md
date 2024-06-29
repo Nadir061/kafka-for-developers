@@ -45,7 +45,6 @@ Kafka Schema Registry
 ## Demo's description
 ```txt
 webinar-07
-│
 ├── consumer-service
 │   ├── build
 │   ├── src
@@ -97,7 +96,7 @@ webinar-07
 │
 ├── person-reflect.avro
 ├── pom.xml
-├── request.http
+├── rest-api.http
 ├── build.gradle.kts
 ├── docker-compose.yaml
 └── README.md
