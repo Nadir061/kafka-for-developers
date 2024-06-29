@@ -5,18 +5,35 @@
 
 ## Kafka cluster
 ```txt
-Kafka с тремя брокерами (репликацией) для повышения отказоустойчивости и масштабируемости системы
-Порты PLAINTEXT_HOST://localhost:9091
-      PLAINTEXT_HOST://localhost:9092
-      PLAINTEXT_HOST://localhost:9093
+1) Брокер #1 
+Порт PLAINTEXT_HOST://localhost:9091
+2) Брокер #2 
+Порт PLAINTEXT_HOST://localhost:9092
+3) Брокер #3
+Порт PLAINTEXT_HOST://localhost:9093 
+4) zookeeper
+Порт ZOOKEEPER_CLIENT_PORT: 2181
+5) Kafdrop
+Порт http://localhost:9000/
+
+Репликация для повышения отказоустойчивости и масштабируемости системы.     
 ```
 
 ## Features list
 ```txt
-
-1) Устройство Admin API
-   - ?
-   ...
+Admin API
+---------
+1) Admin API
+   - Класс CreateTopicResult. Методы: values(), all()
+   - Класс KafkaFuture
+     - Методы: get(), cancel(), isCancelled(), isDone()
+     - Методы: thenApply(), thenAccept(), whenComplete(), exceptionally()
+   - Особенности удаления Топика
+   - Создание Топика: 
+     - Метод: createTopics()
+     - Класс CreateTopicsOptions  
+     - Настройки timeoutMs, validateOnly
+   - Аннотация InterfaceStability: Stable, Evolving, Unstable
 2) Управление топиками:
    - Создание топика:
       - Класс NewTopic

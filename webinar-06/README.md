@@ -5,8 +5,14 @@
 
 ## Kafka cluster
 ```txt
-Один брокер
+1) Брокер #1
 Порт PLAINTEXT_HOST://localhost:9093
+2) zookeeper
+Порт ZOOKEEPER_CLIENT_PORT: 2181
+3) Kafdrop
+Порт http://localhost:9000/
+4) schema-registry
+Порт http://localhost:8081/
 ```
 
 ## Features list

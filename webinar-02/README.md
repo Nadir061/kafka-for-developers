@@ -5,10 +5,18 @@
 
 ## Kafka cluster
 ```txt
-Кластер Kafka с тремя брокерами (репликацией) для повышения отказоустойчивости и масштабируемости системы
-Порты PLAINTEXT_HOST://localhost:9091
-      PLAINTEXT_HOST://localhost:9092
-      PLAINTEXT_HOST://localhost:9093 
+1) Брокер #1 
+Порт PLAINTEXT_HOST://localhost:9091
+2) Брокер #2 
+Порт PLAINTEXT_HOST://localhost:9092
+3) Брокер #3
+Порт PLAINTEXT_HOST://localhost:9093 
+4) zookeeper
+Порт ZOOKEEPER_CLIENT_PORT: 2181
+5) Kafdrop
+Порт http://localhost:9000/
+
+Репликация для повышения отказоустойчивости и масштабируемости системы.     
 ```
 ## ProducerConfig
 При использовании Kafka с несколькими брокерами, в конфигурации продюсера (ProducerConfig) нужно указать список всех 
@@ -22,6 +30,8 @@
 
 ## Features list
 ```txt
+Kafka Producer API
+------------------
 1) Настройка репликации Kafka, Zookeeper, Kafdrop 
 
 2) Producer Record: 

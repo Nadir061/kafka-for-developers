@@ -5,10 +5,18 @@
 
 ## Kafka cluster
 ```txt
-Kafka с тремя брокерами (репликацией) для повышения отказоустойчивости и масштабируемости системы
-Порты PLAINTEXT_HOST://localhost:9091
-      PLAINTEXT_HOST://localhost:9092
-      PLAINTEXT_HOST://localhost:9093
+1) Брокер #1 
+Порт PLAINTEXT_HOST://localhost:9091
+2) Брокер #2 
+Порт PLAINTEXT_HOST://localhost:9092
+3) Брокер #3
+Порт PLAINTEXT_HOST://localhost:9093 
+4) zookeeper
+Порт ZOOKEEPER_CLIENT_PORT: 2181
+5) Kafdrop
+Порт http://localhost:9000/
+
+Репликация для повышения отказоустойчивости и масштабируемости системы.     
 ```
 
 Создание топика topic3 с тремя партициями (см. [actions.md](actions.md))
@@ -25,6 +33,8 @@ docker exec -ti kafka1 /usr/bin/kafka-topics --create --topic topic3 --partition
 ## Features list
 
 ```txt
+Kafka Consumer API
+------------------
 1) Настройка репликации Kafka, Zookeeper, Kafdrop 
 
 2) partition.assignment.strategy — это параметр конфигурации в Apache Kafka, который определяет стратегию распределения партиций топика между консюмерами в группе консюмеров (Consumer Group)

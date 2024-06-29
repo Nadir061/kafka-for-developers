@@ -5,7 +5,12 @@
 
 ## Kafka cluster
 ```txt
-Кластер Kafka с одним брокером. Порт PLAINTEXT_HOST://localhost:9093
+1) Брокер #1 
+Порт PLAINTEXT_HOST://localhost:9093
+2) zookeeper
+Порт ZOOKEEPER_CLIENT_PORT: 2181
+3) Kafdrop
+Порт http://localhost:9000/ 
 ```
 
 ## Apache Kafka Clients for Java
@@ -35,6 +40,8 @@ dependencies {
 
 ## Features list
 ```txt
+Introduction to Kafka
+---------------------
 1) Подготовка: настройка Kafka, Zookeeper, Kafdrop  
   - Кластер Kafka
 2) Сообщения и топики

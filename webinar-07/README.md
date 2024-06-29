@@ -5,18 +5,20 @@
 
 ## Kafka cluster
 ```txt
-1) Один брокер
+1) Брокер #1
 Порт PLAINTEXT_HOST://localhost:9093
 2) zookeeper
 Порт ZOOKEEPER_CLIENT_PORT: 2181
-3) schema-registry
-http://schema-registry:8081
+3) Kafdrop
+Порт http://localhost:9000/
+4) schema-registry
+Порт http://localhost:8081/
 ```
 
 ## Features list
 ```txt
 Kafka Schema Registry
-
+---------------------
 1) Структура и варианты сообщений: текстовый и бинарный форматы
 2) Схема данных
 3) Avro
