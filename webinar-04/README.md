@@ -124,9 +124,9 @@ webinar-04
 │   │   │   ├── java
 │   │   │   │   └── com.prosoft
 │   │   │   │       └── config
-│   │   │   │           ├── KafkaConfig
-│   │   │   │           ├── CreateTopics
-│   │   │   │           └── KafkaAdminApp
+│   │   │   │           ├── KafkaConfig.java
+│   │   │   │           ├── CreateTopics.java
+│   │   │   │           └── KafkaAdminApp.java
 │   │   │   ├── resources
 │   │   │   │   └── logback.xml
 │   ├── test

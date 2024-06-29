@@ -44,61 +44,56 @@ Kafka Schema Registry
 
 ## Demo's description
 ```txt
-webinar-07/
+webinar-07
 │
-├── consumer-service/
-│   ├── .idea/
-│   ├── build/
-│   ├── src/
-│   │   ├── main/
-│   │   │   ├── avro/
+├── consumer-service
+│   ├── build
+│   ├── src
+│   │   ├── main
+│   │   │   ├── avro
 │   │   │   │   └── Person.avsc
-│   │   │   ├── java/
-│   │   │   │   └── com/
-│   │   │   │       └── prosoft/
-│   │   │   │           ├── config/
-│   │   │   │           │   └── KafkaConfig.java
-│   │   │   │           └── domain/
-│   │   │   │               └── KafkaConsumerApp.java
-│   │   │   ├── resources/
+│   │   │   ├── java
+│   │   │   │   └── com.prosoft
+│   │   │   │       ├── config
+│   │   │   │       │   └── KafkaConfig.java
+│   │   │   │       └── domain
+│   │   │   │           └── KafkaConsumerApp.java
+│   │   │   ├── resources
 │   │   │   │   └── logback.xml
-│   │   └── test/
-│   └── target/
-│       ├── generated-sources/
-│       │   └── avro/
-│       │       └── com/
-│       │           └── prosoft/
-│       │               └── domain/
-│       │                   └── Person.java
-│       ├── classes/
-│       └── annotations/
+│   │   └── test
+│   └── target
+│       ├── generated-sources
+│       │   └── avro
+│       │       └── com.prosoft
+│       │           └── domain
+│       │               └── Person.java
+│       ├── classes
+│       └── annotations
 │
-├── producer-service/
-│   ├── .idea/
-│   ├── src/
-│   │   ├── main/
-│   │   │   ├── avro/
+├── producer-service
+│   ├── src
+│   │   ├── main
+│   │   │   ├── avro
 │   │   │   │   └── Person.avsc
-│   │   │   ├── java/
-│   │   │   │   └── com/
-│   │   │   │       └── prosoft/
-│   │   │   │           ├── config/
-│   │   │   │           │   └── KafkaConfig.java
-│   │   │   │           └── domain/
-│   │   │   │               ├── PersonBuilder.java
-│   │   │   │               └── KafkaProducerApp.java
-│   │   ├── resources/
+│   │   │   ├── java
+│   │   │   │   └── com.prosoft
+│   │   │   │       ├── config
+│   │   │   │       │   └── KafkaConfig.java
+│   │   │   │       └── domain
+│   │   │   │           ├── PersonBuilder.java
+│   │   │   │           └── KafkaProducerApp.java
+│   │   ├── resources
 │   │   │   └── logback.xml
-│   │   └── test/
-│   └── target/
-│       ├── generated-sources/
-│       │   └── avro/
-│       │       └── com/
-│       │           └── prosoft/
-│       │               └── domain/
+│   │   └── test
+│   └── target
+│       ├── generated-sources
+│       │   └── avro
+│       │       └── com
+│       │           └── prosoft
+│       │               └── domain
 │       │                   └── Person.java
-│       ├── classes/
-│       └── annotations/
+│       ├── classes
+│       └── annotations
 │
 ├── person-reflect.avro
 ├── pom.xml

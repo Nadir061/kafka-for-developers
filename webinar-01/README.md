@@ -82,8 +82,8 @@ webinar-01
 │   │   │   ├── java
 │   │   │   │   └── com.prosoft
 │   │   │   │       └── config
-│   │   │   │           ├── KafkaConfig
-│   │   │   │           └── KafkaConsumerApp
+│   │   │   │           ├── KafkaConfig.java
+│   │   │   │           └── KafkaConsumerApp.java
 │   │   │   ├── resources
 │   │   │   │   └── logback.xml
 │   │   ├── test
@@ -95,10 +95,10 @@ webinar-01
 │   │   │   ├── java
 │   │   │   │   └── com.prosoft
 │   │   │   │       └── config
-│   │   │   │           ├── KafkaConfig
-│   │   │   │           ├── KafkaProducer01App
-│   │   │   │           ├── KafkaProducer02App
-│   │   │   │           └── KafkaProducer03App
+│   │   │   │           ├── KafkaConfig.java
+│   │   │   │           ├── KafkaProducer01App.java
+│   │   │   │           ├── KafkaProducer02App.java
+│   │   │   │           └── KafkaProducer03App.java
 │   │   │   ├── resources
 │   │   │   │   └── logback.xml
 │   │   ├── test

@@ -44,6 +44,8 @@ docker-compose.yaml
 
 ## Features list
 ```txt
+Kafka Transactions
+------------------
 1) Гарантии в Kafka
    - At Most Once
    - At Least Once
@@ -89,10 +91,10 @@ webinar-05
 │   │   │   ├── java
 │   │   │   │   └── com.prosoft
 │   │   │   │       ├── config
-│   │   │   │       │   ├── KafkaConfig01
-│   │   │   │       │   └── KafkaConfig02
-│   │   │   │       ├── KafkaConsumer01App
-│   │   │   │       └── KafkaConsumer02App
+│   │   │   │       │   ├── KafkaConfig01.java
+│   │   │   │       │   └── KafkaConfig02.java
+│   │   │   │       ├── KafkaConsumer01App.java
+│   │   │   │       └── KafkaConsumer02App.java
 │   │   │   ├── resources
 │   │   │   │   └── logback.xml
 │   │   └── test
@@ -103,10 +105,10 @@ webinar-05
 │   │   │   ├── java
 │   │   │   │   └── com.prosoft
 │   │   │   │       ├── config
-│   │   │   │       │   ├── KafkaConfig01
-│   │   │   │       │   └── KafkaConfig02
-│   │   │   │       ├── KafkaProducer01App
-│   │   │   │       └── KafkaProducer02App
+│   │   │   │       │   ├── KafkaConfig01.java
+│   │   │   │       │   └── KafkaConfig02.java
+│   │   │   │       ├── KafkaProducer01App.java
+│   │   │   │       └── KafkaProducer02App.java
 │   │   │   ├── resources
 │   │   │   │   └── logback.xml
 │   │   └── test

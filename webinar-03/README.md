@@ -108,12 +108,12 @@ webinar-03
 │       │   ├── java
 │       │   │   └── com.prosoft
 │       │   │       ├── config
-│       │   │       │   └── KafkaConfig - настройки конфигурации потребителя Kafka
+│       │   │       │   └── KafkaConfig.java - настройки конфигурации потребителя Kafka
 │       │   │       ├── deserializer
-│       │   │       │   └── PersonDeserializer - десериализатор массива байт из Kafka в объекты типа Person
+│       │   │       │   └── PersonDeserializer.java - десериализатор массива байт из Kafka в объекты типа Person
 │       │   │       ├── domain
-│       │   │       │   └── Person - класс-домен, представляющий отправляемые объекты
-│       │   │       └── KafkaConsumerApp
+│       │   │       │   └── Person.java - класс-домен, представляющий отправляемые объекты
+│       │   │       └── KafkaConsumerApp.java
 │       │   └── resources
 │       └── test
 │           └── build.gradle.kts
@@ -124,11 +124,11 @@ webinar-03
 │       │   ├── java
 │       │   │   └── com.prosoft
 │       │   │       ├── config
-│       │   │       │   └── KafkaConfig - настройки конфигурации отправителя Kafka
+│       │   │       │   └── KafkaConfig.java - настройки конфигурации отправителя Kafka
 │       │   │       ├── domain
-│       │   │       │   └── Person - класс-домен, представляющий принмаемые объекты
+│       │   │       │   └── Person.java - класс-домен, представляющий принмаемые объекты
 │       │   │       ├── serializer
-│       │   │       │   └── PersonSerializer - сериализатор объектов типа Person в массив байт
+│       │   │       │   └── PersonSerializer.java - сериализатор объектов типа Person в массив байт
 │       │   │       └── KafkaProducerApp
 │       │   └── resources
 │       └── test

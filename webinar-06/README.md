@@ -18,6 +18,7 @@
 ## Features list
 ```txt
 Kafka Streams
+-------------
 1) Библиотека kafka-streams
    - DAG
    - Streams API
@@ -72,12 +73,12 @@ webinar-06
 │       │   ├── java
 │       │   │   └── com.prosoft
 │       │   │       ├── config
-│       │   │       │   └── KafkaConfig
+│       │   │       │   └── KafkaConfig.java
 │       │   │       ├── domain
-│       │   │       │   └── Person
+│       │   │       │   └── Person.java
 │       │   │       ├── serializer
-│       │   │       │   └── PersonSerializer
-│       │   │       └── KafkaProducerApp
+│       │   │       │   └── PersonSerializer.java
+│       │   │       └── KafkaProducerApp.java
 │       │   └── resources
 │       │       └── logback.xml
 │       └── test
@@ -89,26 +90,26 @@ webinar-06
 │       │   ├── java
 │       │   │   └── com.prosoft
 │       │   │       ├── config
-│       │   │       │   ├── KafkaConfig01
-│       │   │       │   ├── KafkaConfig02
-│       │   │       │   ├── KafkaConfig03
-│       │   │       │   ├── KafkaConfig04
-│       │   │       │   ├── KafkaConfig05
-│       │   │       │   ├── KafkaConfig06
-│       │   │       │   ├── KafkaConfig07
-│       │   │       │   └── KafkaConfig08
+│       │   │       │   ├── KafkaConfig01.java
+│       │   │       │   ├── KafkaConfig02.java
+│       │   │       │   ├── KafkaConfig03.java
+│       │   │       │   ├── KafkaConfig04.java
+│       │   │       │   ├── KafkaConfig05.java
+│       │   │       │   ├── KafkaConfig06.java
+│       │   │       │   ├── KafkaConfig07.java
+│       │   │       │   └── KafkaConfig08.java
 │       │   │       ├── domain
-│       │   │       │   └── Person
+│       │   │       │   └── Person.java
 │       │   │       ├── serde
-│       │   │       │   └── PersonSerde
-│       │   │       ├── KafkaStream01App
-│       │   │       ├── KafkaStream02App
-│       │   │       ├── KafkaStream03App
-│       │   │       ├── KafkaStream04App
-│       │   │       ├── KafkaStream05App
-│       │   │       ├── KafkaStream06App
-│       │   │       ├── KafkaStream07App
-│       │   │       └── KafkaStream08App
+│       │   │       │   └── PersonSerde.java
+│       │   │       ├── KafkaStream01App.java
+│       │   │       ├── KafkaStream02App.java
+│       │   │       ├── KafkaStream03App.java
+│       │   │       ├── KafkaStream04App.java
+│       │   │       ├── KafkaStream05App.java
+│       │   │       ├── KafkaStream06App.java
+│       │   │       ├── KafkaStream07App.java
+│       │   │       └── KafkaStream08App.java
 │       │   └── resources
 │       │       └── logback.xml
 │       └── test
