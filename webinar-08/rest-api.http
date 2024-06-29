@@ -19,7 +19,7 @@ Content-Type: application/vnd.kafka.json.v2+json
   ]
 }
 
-### 3) Чтение сообщения:
+### 3) Чтение сообщений из топика:
 ## 3.1) Создание кансамера с параметрами GROUP_ID = "my-consumer-group".
 ## В теле указывается: имя кансамера, формат, AUTO_OFFSET_RESET_CONFIG = "earliest" (начинает считывать сообщения с самого начала топика).
 ## В ответе - ссылка на созданный консамер: "instance_id": "my-consumer"
