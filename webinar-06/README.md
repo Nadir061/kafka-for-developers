@@ -11,6 +11,7 @@
 
 ## Features list
 ```txt
+Kafka Streams
 1) Библиотека kafka-streams
    - DAG
    - Streams API
