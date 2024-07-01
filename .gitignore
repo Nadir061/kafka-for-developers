@@ -31,3 +31,10 @@ build/
 
 ### Mac OS ###
 .DS_Store
+
+# Ignore build artifacts in all modules
+**/build/
+**/target/
+
+# Ignore avro
+*.avro
